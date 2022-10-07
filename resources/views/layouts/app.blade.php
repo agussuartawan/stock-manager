@@ -8,34 +8,25 @@
 
     <link rel="stylesheet" href="assets/css/main/app.css">
     <link rel="stylesheet" href="assets/css/main/app-dark.css">
+
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
-
-    <link rel="stylesheet" href="assets/css/shared/iconly.css">
-    @stack('css')
 </head>
 
 <body>
     <div id="app">
-
         @include('include.sidebar')
-
-        <div id="main">
+        <div id="main" class='layout-navbar'>
             @include('include.header')
 
-            @yield('content')
-
-            @include('include.footer')
+            <div id="main-content">
+                @yield('content')
+            </div>
         </div>
     </div>
-
     <script src="assets/js/bootstrap.js"></script>
     <script src="assets/js/app.js"></script>
 
-    <!-- Need: Apexcharts -->
-    <script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
-    <script src="assets/js/pages/dashboard.js"></script>
-    @stack('js')
 </body>
 
 </html>
