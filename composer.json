@@ -14,6 +14,8 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
+        "livewire/livewire": "^2.10",
+        "rappasoft/laravel-livewire-tables": "^2.8",
         "spatie/laravel-permission": "^5.5"
     },
     "require-dev": {
@@ -30,7 +32,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/currency.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cure;
 use Illuminate\Http\Request;
 
 class CureController extends Controller

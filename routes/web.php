@@ -16,15 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return to_route('home');
 });
 
 Auth::routes(['register' => false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => 'auth'], function(){
-    Route::group(['middleware' => 'can:akses obat'], function(){
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'can:akses obat'], function () {
         Route::resource('cures', CureController::class);
     });
 });

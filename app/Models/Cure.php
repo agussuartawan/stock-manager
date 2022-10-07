@@ -20,6 +20,16 @@ class Cure extends Model
         'selling_price',
     ];
 
+    public function getPurchasePriceAttribute($value)
+    {
+        return idr($value);
+    }
+
+    public function getSellingPriceAttribute($value)
+    {
+        return idr($value);
+    }
+
     public function cureType()
     {
         return $this->belongsTo(CureType::class);
