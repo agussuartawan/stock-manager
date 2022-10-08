@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Master Obat')
 @section('content')
     <div class="page-heading">
         <div class="page-title">

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cure;
+use App\Models\CureType;
+use App\Models\CureUnit;
+use App\Models\Rack;
 use Illuminate\Http\Request;
 
 class CureController extends Controller
@@ -24,7 +27,16 @@ class CureController extends Controller
      */
     public function create()
     {
-        //
+        return view('cure.form', [
+            'cure' => new Cure(),
+            'method' => 'POST',
+            'route' => 'cures.create',
+            'cure_type' => CureType::pluck('name', 'id'),
+            'cure_unit' => CureUnit::pluck('name', 'id'),
+            'rack' => Rack::pluck('name', 'id'),
+            'title' => 'Tambah Obat',
+            'breadcumb' => 'Tambah'
+        ]);
     }
 
     /**
@@ -35,7 +47,6 @@ class CureController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -55,9 +66,18 @@ class CureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cure $cure)
     {
-        //
+        return view('cure.form', [
+            'cure' => $cure,
+            'method' => 'POST',
+            'route' => 'cures.create',
+            'cure_type' => CureType::pluck('name', 'id'),
+            'cure_unit' => CureUnit::pluck('name', 'id'),
+            'rack' => Rack::pluck('name', 'id'),
+            'title' => 'Edit Obat',
+            'breadcumb' => 'Edit'
+        ]);
     }
 
     /**

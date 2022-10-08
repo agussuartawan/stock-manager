@@ -1,9 +1,3 @@
-{{-- <header class="mb-3">
-    <a href="#" class="burger-btn d-block d-xl-none">
-        <i class="bi bi-justify fs-3"></i>
-    </a>
-</header> --}}
-
 <header class='mb-0'>
     <nav class="navbar navbar-expand navbar-light navbar-top">
         <div class="container-fluid">
@@ -28,7 +22,7 @@
                             </div>
                             <div class="user-img d-flex align-items-center">
                                 <div class="avatar avatar-md">
-                                    <img src="assets/images/faces/1.jpg">
+                                    <img src="/assets/images/faces/1.jpg">
                                 </div>
                             </div>
                         </div>

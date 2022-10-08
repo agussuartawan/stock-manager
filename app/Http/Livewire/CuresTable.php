@@ -18,7 +18,13 @@ class CuresTable extends DataTableComponent
                 'class' => 'bg-white rounded-3 table-hover',
             ])
             ->setEmptyMessage('Tidak ada data')
-            ->setSortingPillsDisabled();
+            ->setSortingPillsDisabled()->setConfigurableAreas([
+                'toolbar-right-start' => [
+                    'include.btnAdd', [
+                        'url' => route('cures.create'),
+                    ],
+                ],
+            ]);
     }
 
     public function columns(): array
@@ -54,10 +60,10 @@ class CuresTable extends DataTableComponent
 
             LinkColumn::make('Aksi')
                 ->title(fn ($row) => 'edit')
-                ->location(fn ($row) => route('home'))
+                ->location(fn ($row) => route('cures.edit', $row))
                 ->attributes(fn ($row) => [
                     'class' => 'badge rounded-pill bg-primary',
-                    'alt' => $row->name . ' edit',
+                    'title' => 'Edit ' . $row->code
                 ]),
         ];
     }
