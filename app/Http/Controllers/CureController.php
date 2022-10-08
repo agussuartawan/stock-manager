@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCureRequest;
+use App\Http\Requests\UpdateCureRequest;
 use App\Models\Cure;
 use App\Models\CureType;
 use App\Models\CureUnit;
@@ -30,12 +32,13 @@ class CureController extends Controller
         return view('cure.form', [
             'cure' => new Cure(),
             'method' => 'POST',
-            'route' => 'cures.create',
+            'route' => 'cures.store',
             'cure_type' => CureType::pluck('name', 'id'),
             'cure_unit' => CureUnit::pluck('name', 'id'),
             'rack' => Rack::pluck('name', 'id'),
             'title' => 'Tambah Obat',
-            'breadcumb' => 'Tambah'
+            'breadcumb' => 'Tambah',
+            'code' => Cure::getNextCode()
         ]);
     }
 
@@ -45,19 +48,10 @@ class CureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCureRequest $request)
     {
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        Cure::create($request->validated());
+        return to_route('cures.index')->with('success', 'Data obat berhasil ditambahkan');
     }
 
     /**
@@ -70,13 +64,14 @@ class CureController extends Controller
     {
         return view('cure.form', [
             'cure' => $cure,
-            'method' => 'POST',
-            'route' => 'cures.create',
+            'method' => 'PUT',
+            'route' => ["cures.update", $cure->id],
             'cure_type' => CureType::pluck('name', 'id'),
             'cure_unit' => CureUnit::pluck('name', 'id'),
             'rack' => Rack::pluck('name', 'id'),
             'title' => 'Edit Obat',
-            'breadcumb' => 'Edit'
+            'breadcumb' => 'Edit',
+            'code' => null
         ]);
     }
 
@@ -87,9 +82,10 @@ class CureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCureRequest $request, Cure $cure)
     {
-        //
+        $cure->update($request->validated());
+        return to_route('cures.index')->with('success', 'Data obat berhasil diubah');
     }
 
     /**

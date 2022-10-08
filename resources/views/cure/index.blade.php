@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Master Obat')
+
 @section('content')
     <div class="page-heading">
         <div class="page-title">
@@ -23,4 +24,23 @@
             <livewire:cures-table />
         </section>
     </div>
+    @if (session('success'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                Swal.fire(
+                    "Berhasil",
+                    "{{ session('success') }}",
+                    "success"
+                )
+            });
+        </script>
+    @endif
 @endsection
+
+@push('css')
+    <link rel="stylesheet" href="/assets/extensions/sweetalert2/sweetalert2.min.css">
+@endpush
+
+@push('js')
+    <script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+@endpush

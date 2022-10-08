@@ -21,7 +21,11 @@
                         {{-- <a href="index.html"><img src="assets/images/logo/logo.svg" alt="Logo"></a> --}}
                     </div>
                     <h1 class="auth-title">Log in.</h1>
-
+                    @if ($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            Identitas tersebut tidak terdaftar!
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 

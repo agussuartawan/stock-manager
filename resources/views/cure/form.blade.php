@@ -30,57 +30,126 @@
                 ]) !!}
                 
                 <div class="mb-3">
-                    <label for="code">{{ __('Kode Obat') }}</label>
-                    {!! Form::text('code', null, ['class' => 'form-control', 'id' => 'code']) !!}
+                    @php
+                        $class = '';
+                        $label = '';
+                        if($errors->has('name')){
+                            $class = ' is-invalid';
+                            $label = ' text-danger';
+                        }
+                    @endphp
+                    <label for="code" class="{{ $label }}">{{ __('Kode Obat') }}</label>
+                    {!! Form::text('code', $code, ['class' => 'form-control'.$class, 'id' => 'code', 'disabled' => true]) !!}
                 </div>
                 
                 <div class="mb-3">
-                    <label for="name">{{ __('Nama Obat') }}</label>
-                    {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) !!}
+                    @php
+                        $class = '';
+                        $label = '';
+                        if($errors->has('name')){
+                            $class = ' is-invalid';
+                            $label = ' text-danger';
+                        }
+                    @endphp
+                    <label for="name" class="{{ $label }}">{{ __('Nama Obat') }}</label>
+                    {!! Form::text('name', null, ['class' => 'form-control'.$class, 'id' => 'name']) !!}
+                    @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
-                
+
                 <div class="mb-3">
                     <div class="row">
                         <div class="col">
-                            <label for="cure_type_id">{{ __('Jenis Obat') }}</label>
-                            {!! Form::select('cure_type_id', $cure_type, null, ['class' => 'form-control form-select', 'id' =>
+                            @php
+                                $class = '';
+                                $label = '';
+                                if($errors->has('name')){
+                                    $class = ' is-invalid';
+                                    $label = ' text-danger';
+                                }
+                            @endphp
+                            <label for="cure_type_id" class="{{ $label }}">{{ __('Jenis Obat') }}</label>
+                            {!! Form::select('cure_type_id', $cure_type, null, ['class' => 'form-control form-select'.$class, 'id' =>
                             'cure_type_id']) !!}
                         </div>
                 
                         <div class="col">
-                            <label for="cure_unit_id">{{ __('Unit') }}</label>
-                            {!! Form::select('cure_unit_id', $cure_unit, null, ['class' => 'form-control form-select', 'id' =>
+                            @php
+                                $class = '';
+                                $label = '';
+                                if($errors->has('name')){
+                                    $class = ' is-invalid';
+                                    $label = ' text-danger';
+                                }
+                            @endphp
+                            <label for="cure_unit_id" class="{{ $label }}">{{ __('Unit') }}</label>
+                            {!! Form::select('cure_unit_id', $cure_unit, null, ['class' => 'form-control form-select'.$class, 'id' =>
                             'cure_unit_id']) !!}
                         </div>
                 
                         <div class="col">
-                            <label for="rack_id">{{ __('Rak') }}</label>
-                            {!! Form::select('rack_id', $rack, null, ['class' => 'form-control form-select', 'id' => 'rack_id']) !!}
+                            @php
+                                $class = '';
+                                $label = '';
+                                if($errors->has('name')){
+                                    $class = ' is-invalid';
+                                    $label = ' text-danger';
+                                }
+                            @endphp
+                            <label for="rack_id" class="{{ $label }}">{{ __('Rak') }}</label>
+                            {!! Form::select('rack_id', $rack, null, ['class' => 'form-control form-select'.$class, 'id' => 'rack_id']) !!}
                         </div>
                     </div>
                 </div>
                 
                 <div class="mb-3">
-                    <label for="minimum_stock">{{ __('Stok Minimum') }}</label>
-                    {!! Form::number('minimum_stock', null, ['class' => 'form-control', 'id' => 'minimum_stock']) !!}
+                    @php
+                        $class = '';
+                        $label = '';
+                        if($errors->has('name')){
+                            $class = ' is-invalid';
+                            $label = ' text-danger';
+                        }
+                    @endphp
+                    <label for="minimum_stock" class="{{ $label }}">{{ __('Stok Minimum') }}</label>
+                    {!! Form::number('minimum_stock', null, ['class' => 'form-control'.$class, 'id' => 'minimum_stock']) !!}
                 </div>
                 
                 <div class="mb-3">
                     <div class="row">
                         <div class="col">
-                            <label for="purchase_price">{{ __('Harga Jual') }}</label>
+                            @php
+                                $class = '';
+                                $label = '';
+                                if($errors->has('name')){
+                                    $class = ' is-invalid';
+                                    $label = ' text-danger';
+                                }
+                            @endphp
+                            <label for="purchase_price" class="{{ $label }}">{{ __('Harga Jual') }}</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Rp.</span>
-                                {!! Form::text('purchase_price', null, ['class' => 'form-control', 'id' => 'purchase_price']) !!}
+                                {!! Form::text('purchase_price', null, ['class' => 'form-control'.$class, 'id' => 'purchase_price']) !!}
                             </div>
 
                         </div>
                         
                         <div class="col">
-                            <label for="selling_price">{{ __('Harga Beli') }}</label>
+                            @php
+                                $class = '';
+                                $label = '';
+                                if($errors->has('name')){
+                                    $class = ' is-invalid';
+                                    $label = ' text-danger';
+                                }
+                            @endphp
+                            <label for="selling_price" class="{{ $label }}">{{ __('Harga Beli') }}</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Rp.</span>
-                                {!! Form::text('selling_price', null, ['class' => 'form-control', 'id' => 'selling_price']) !!}
+                                {!! Form::text('selling_price', null, ['class' => 'form-control'.$class, 'id' => 'selling_price']) !!}
                             </div>
                         </div>
                     </div>

@@ -14,10 +14,11 @@ class CuresTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id')
+            ->setEmptyMessage('Tidak ada data')
+            ->setDefaultSort('id', 'desc')
             ->setTableAttributes([
                 'class' => 'bg-white rounded-3 table-hover',
             ])
-            ->setEmptyMessage('Tidak ada data')
             ->setSortingPillsDisabled()->setConfigurableAreas([
                 'toolbar-right-start' => [
                     'include.btnAdd', [
