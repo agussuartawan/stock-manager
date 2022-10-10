@@ -23,6 +23,8 @@
         <section class="section">
             <livewire:cures-table />
         </section>
+        
+        <livewire:show-table />
     </div>
     @if (session('success'))
         <script>

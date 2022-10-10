@@ -20,18 +20,9 @@
     <section class="section">
         <livewire:cure.cures-table />
     </section>
+
+    @include('include.modal')
 </div>
-@if (session('success'))
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-                Swal.fire(
-                    "Berhasil",
-                    "{{ session('success') }}",
-                    "success"
-                )
-            });
-</script>
-@endif
 
 @push('css')
 <link rel="stylesheet" href="/assets/extensions/sweetalert2/sweetalert2.min.css">
@@ -39,4 +30,19 @@
 
 @push('js')
 <script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+<script>
+    var myModal = new bootstrap.Modal(document.getElementById("modal"), {})
+    window.addEventListener('modal-show', event => {
+        myModal.show()
+    })
+    
+    window.addEventListener('modal-hide', event => {
+        myModal.hide()
+        Swal.fire(
+            "Berhasil",
+            "Data produk berhasil disimpan.",
+            "success"
+        )
+    })
+</script>
 @endpush

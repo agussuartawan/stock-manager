@@ -11,6 +11,8 @@ class CuresTable extends DataTableComponent
 {
     protected $model = Cure::class;
 
+    protected $listeners = ['refresh:table' => 'refresh'];
+
     public function configure(): void
     {
         $this->setPrimaryKey('id')
@@ -19,13 +21,19 @@ class CuresTable extends DataTableComponent
             ->setTableAttributes([
                 'class' => 'bg-white rounded-3 table-hover',
             ])
-            ->setSortingPillsDisabled()->setConfigurableAreas([
+            ->setSortingPillsDisabled()
+            ->setConfigurableAreas([
                 'toolbar-right-start' => [
-                    'include.btnAdd', [
-                        'url' => route('cures.create'),
-                    ],
+                    'include.btn-add', [
+                        'action' => '$emit("create:cure")'
+                    ]
                 ],
             ]);
+    }
+
+    public function refresh()
+    {
+        $this->setRefreshMethod('refresh');
     }
 
     public function columns(): array
