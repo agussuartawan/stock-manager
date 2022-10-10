@@ -11,7 +11,7 @@ class CuresTable extends DataTableComponent
 {
     protected $model = Cure::class;
 
-    protected $listeners = ['refresh:table' => 'refresh'];
+    protected $listeners = ['refresh:table' => '$refresh'];
 
     public function configure(): void
     {
@@ -31,11 +31,6 @@ class CuresTable extends DataTableComponent
             ]);
     }
 
-    public function refresh()
-    {
-        $this->setRefreshMethod('refresh');
-    }
-
     public function columns(): array
     {
         return [
@@ -47,32 +42,40 @@ class CuresTable extends DataTableComponent
                 ->searchable(),
 
             Column::make("Nama", "name")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
 
             Column::make("Stok Minimal", "minimum_stock")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
 
             Column::make("Unit", "cureUnit.name")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
 
             Column::make("Harga Beli", "purchase_price")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
 
             Column::make("Harga Jual", "selling_price")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
 
             Column::make("Rak", "rack.name")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
 
             Column::make("Jenis", "cureType.name")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
 
             LinkColumn::make('Aksi')
                 ->title(fn ($row) => 'edit')
-                ->location(fn ($row) => route('cures.edit', $row))
+                ->location(fn ($row) => '#')
                 ->attributes(fn ($row) => [
                     'class' => 'badge rounded-pill bg-primary',
-                    'title' => 'Edit ' . $row->code
+                    'title' => 'Edit ' . $row->code,
+                    "wire:click" => '$emit(`edit:cure`,' . $row->id . ')'
                 ]),
         ];
     }

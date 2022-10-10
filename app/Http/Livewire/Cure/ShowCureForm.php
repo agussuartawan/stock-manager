@@ -29,7 +29,7 @@ class ShowCureForm extends Component
         'rack_id' => ['required'],
         'code' => ['unique:cures,code'],
         'name' => ['required', 'max:255'],
-        'minimum_stock' => ['required'],
+        'minimum_stock' => ['required', 'integer'],
         'purchase_price' => ['required'],
         'selling_price' => ['required']
     ];
@@ -46,30 +46,45 @@ class ShowCureForm extends Component
         'selling_price' => 'Harga jual tidak boleh kosong'
     ];
 
-    protected $listeners = ['store:cure' => 'storeCure'];
+    protected $listeners = [
+        'showCreate:cure' => '$refresh',
+        'store:cure' => 'storeCure',
+        'showEdit:cure' => 'editCure',
+        'update:cure' => 'updateCure',
+        'modal:close' => 'modalClose'
+    ];
 
     public function mount()
     {
-        $this->title = 'Tambah Obat';
         $this->code = Cure::getNextCode();
         $this->cure_types = CureType::select('name', 'id')->get();
         $this->cure_units = CureUnit::select('name', 'id')->get();
         $this->racks = Rack::select('name', 'id')->get();
     }
 
+    public function editCure(Cure $cure)
+    {
+        $this->code = $cure->code;
+        $this->name = $cure->name;
+        $this->minimum_stock = $cure->minimum_stock;
+        $this->purchase_price = $cure->purchase_price;
+        $this->selling_price = $cure->selling_price;
+        $this->cure_type_id = $cure->cure_type_id;
+        $this->cure_unit_id = $cure->cure_unit_id;
+        $this->rack_id = $cure->rack_id;
+    }
+
     public function storeCure()
     {
-        $this->validate();
+        Cure::create($this->validate());
+        $this->emit('refresh:table');
+        $this->dispatchBrowserEvent('modal-hide');
+        $this->resetForm();
+    }
 
-        Cure::create([
-            'name' => $this->name,
-            'minimum_stock' => $this->minimum_stock,
-            'purchase_price' => $this->purchase_price,
-            'selling_price' => $this->selling_price,
-            'cure_type_id' => $this->cure_type_id,
-            'cure_unit_id' => $this->cure_unit_id,
-            'rack_id' => $this->rack_id,
-        ]);
+    public function updateCure(Cure $cure)
+    {
+        $cure->update($this->validate());
         $this->emit('refresh:table');
         $this->dispatchBrowserEvent('modal-hide');
         $this->resetForm();
@@ -85,6 +100,16 @@ class ShowCureForm extends Component
         $this->minimum_stock = '';
         $this->purchase_price = '';
         $this->selling_price = '';
+    }
+
+    public function modalClose()
+    {
+        $this->resetForm();
+    }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
     }
 
     public function render()

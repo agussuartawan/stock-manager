@@ -4,14 +4,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ $formTitle }}</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="$emit('modal:close')"></button>
             </div>
             <div class="modal-body">
                 <livewire:cure.show-cure-form />
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-secondary me-2" data-bs-dismiss="modal">
+                <button class="btn btn-secondary me-2" data-bs-dismiss="modal" wire:click="$emit('modal:close')">
                     <i class="bi bi-caret-left-square-fill"></i>
                     Tutup
                 </button>
