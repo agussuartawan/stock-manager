@@ -8,6 +8,7 @@ class ShowCures extends Component
 {
     public $formTitle;
     public $action;
+    public $formComponent = 'cure.show-cure-form';
 
     protected $listeners = [
         'create:cure' => 'createCureAction',

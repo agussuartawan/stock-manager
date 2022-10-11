@@ -4,10 +4,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ $formTitle }}</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="$emit('modal:close')"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    wire:click="$emit('modal:close')"></button>
             </div>
             <div class="modal-body">
-                <livewire:cure.show-cure-form />
+                @livewire($formComponent)
             </div>
 
             <div class="modal-footer">
@@ -15,7 +16,7 @@
                     <i class="bi bi-caret-left-square-fill"></i>
                     Tutup
                 </button>
-            
+
                 <button class="btn btn-primary" wire:click="{{ $action }}">
                     <i class="bi bi-cloud-arrow-up-fill"></i>
                     Simpan

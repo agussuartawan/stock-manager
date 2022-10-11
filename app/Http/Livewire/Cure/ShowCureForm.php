@@ -23,17 +23,6 @@ class ShowCureForm extends Component
         $racks,
         $title;
 
-    protected $rules = [
-        'cure_type_id' => ['required'],
-        'cure_unit_id' => ['required'],
-        'rack_id' => ['required'],
-        'code' => ['unique:cures,code'],
-        'name' => ['required', 'max:255'],
-        'minimum_stock' => ['required', 'integer'],
-        'purchase_price' => ['required'],
-        'selling_price' => ['required']
-    ];
-
     protected $messages = [
         'cure_type_id.required' => 'Jenis tidak boleh kosong',
         'cure_unit_id' => 'Unit tidak boleh kosong',
@@ -53,6 +42,19 @@ class ShowCureForm extends Component
         'update:cure' => 'updateCure',
         'modal:close' => 'modalClose'
     ];
+
+    public function rules()
+    {
+        return [
+            'cure_type_id' => ['required'],
+            'cure_unit_id' => ['required'],
+            'rack_id' => ['required'],
+            'name' => ['required', 'max:255'],
+            'minimum_stock' => ['required', 'integer'],
+            'purchase_price' => ['required'],
+            'selling_price' => ['required']
+        ];
+    }
 
     public function mount()
     {

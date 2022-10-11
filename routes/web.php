@@ -3,10 +3,8 @@
 use App\Http\Livewire\Cure\ShowCures;
 use App\Http\Livewire\Rack\ShowRacks;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CureController;
 use App\Http\Controllers\HomeController;
-use App\Http\Livewire\Cure\ShowCureForm;
-use App\Http\Livewire\Cure\Showform;
+use App\Http\Livewire\CureType\ShowCureTypes;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,15 +29,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'can:akses obat'], function () {
         Route::get('/cures', ShowCures::class)
             ->name('cures.index');
-
-        Route::get('/cures/create', ShowCureForm::class)->name('cures.create');
-        Route::post('/cures', [HomeController::class, 'index'])->name('cures.store');
-        Route::get('/cures/{cure}/edit', [HomeController::class, 'index'])->name('cures.edit');
-        Route::put('/cures/{cure}', [HomeController::class, 'index'])->name('cures.update');
     });
 
     Route::group(['middleware' => 'can:akses rak obat'], function () {
         Route::get('/racks', ShowRacks::class)
             ->name('racks.index');
+    });
+
+    Route::group(['middleware' => 'can:akses jenis obat'], function () {
+        Route::get('/cure-types', ShowCureTypes::class)
+            ->name('cure-types.index');
     });
 });

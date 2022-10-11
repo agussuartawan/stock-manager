@@ -60,8 +60,8 @@
                 @endcan
 
                 @can('akses jenis obat')
-                    <li class="sidebar-item">
-                        <a href="index.html" class='sidebar-link'>
+                    <li class="sidebar-item{{ request()->is('cure-types*') ? ' active' : '' }}">
+                        <a href="{{ route('cure-types.index') }}" class='sidebar-link'>
                             <i class="bi bi-filter-square-fill"></i>
                             <span>Jenis Obat</span>
                         </a>
