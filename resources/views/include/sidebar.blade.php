@@ -52,7 +52,7 @@
 
                 @can('akses obat')
                     <li class="sidebar-item{{ request()->is('cures*') ? ' active' : '' }}">
-                        <a href="{{ route('cures.index') }}" class='sidebar-link' data-turbolinks="true">
+                        <a href="{{ route('cures.index') }}" class='sidebar-link'>
                             <i class="bi bi-box-fill"></i>
                             <span>Master Obat</span>
                         </a>
@@ -68,9 +68,18 @@
                     </li>
                 @endcan
 
-                @can('akses rak obat')
+                @can('akses unit obat')
+                    <li class="sidebar-item{{ request()->is('units*') ? ' active' : '' }}">
+                        <a href="{{ route('units.index') }}" class='sidebar-link'>
+                            <i class="bi bi-hdd-rack-fill"></i>
+                            <span>Satuan Obat</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('akses unit obat')
                     <li class="sidebar-item{{ request()->is('racks*') ? ' active' : '' }}">
-                        <a href="{{ route('racks.index') }}" class='sidebar-link' data-turbolinks="true">
+                        <a href="{{ route('racks.index') }}" class='sidebar-link'>
                             <i class="bi bi-hdd-rack-fill"></i>
                             <span>Rak Obat</span>
                         </a>

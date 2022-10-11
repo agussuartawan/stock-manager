@@ -5,6 +5,7 @@ use App\Http\Livewire\Rack\ShowRacks;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Livewire\CureType\ShowCureTypes;
+use App\Http\Livewire\Unit\ShowUnits;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,5 +40,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'can:akses jenis obat'], function () {
         Route::get('/cure-types', ShowCureTypes::class)
             ->name('cure-types.index');
+    });
+
+    Route::group(['middleware' => 'can:akses unit obat'], function () {
+        Route::get('/units', ShowUnits::class)
+            ->name('units.index');
+    });
+
+    Route::group(['middleware' => 'can:akses rak obat'], function () {
+        Route::get('/racks', ShowRacks::class)
+            ->name('racks.index');
     });
 });
