@@ -17,7 +17,6 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Cure::class)->constrained()->onUpdate('cascade');
             $table->foreignIdFor(Supplier::class)->constrained()->onUpdate('cascade');
             $table->string('code')->unique();
             $table->date('date')->useCurrent();

@@ -87,8 +87,8 @@
                 @endcan
 
                 @can('akses obat masuk')
-                    <li class="sidebar-item">
-                        <a href="index.html" class='sidebar-link'>
+                    <li class="sidebar-item{{ request()->is('purchases*') ? ' active' : '' }}">
+                        <a href="{{ route('purchases.index') }}" class='sidebar-link'>
                             <i class="bi bi-arrow-up-square-fill"></i>
                             <span>Data Obat Masuk</span>
                         </a>
@@ -96,8 +96,8 @@
                 @endcan
 
                 @can('akses obat keluar')
-                    <li class="sidebar-item">
-                        <a href="index.html" class='sidebar-link'>
+                    <li class="sidebar-item{{ request()->is('sales*') ? ' active' : '' }}">
+                        <a href="{{ route('sales.index') }}" class='sidebar-link'>
                             <i class="bi bi-arrow-down-square-fill"></i>
                             <span>Data Obat Keluar</span>
                         </a>

@@ -5,6 +5,8 @@ use App\Http\Livewire\Rack\ShowRacks;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Livewire\CureType\ShowCureTypes;
+use App\Http\Livewire\Purchase\ShowPurchases;
+use App\Http\Livewire\Sale\ShowSales;
 use App\Http\Livewire\Unit\ShowUnits;
 
 /*
@@ -50,5 +52,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'can:akses rak obat'], function () {
         Route::get('/racks', ShowRacks::class)
             ->name('racks.index');
+    });
+
+    Route::group(['middleware' => 'can:akses obat masuk'], function(){
+        Route::get('/purchases', ShowPurchases::class)
+            ->name('purchases.index');
+    });
+
+    Route::group(['middleware' => 'can:akses obat masuk'], function(){
+        Route::get('/sales', ShowSales::class)
+            ->name('sales.index');
     });
 });
