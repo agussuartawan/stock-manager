@@ -11,13 +11,13 @@ class PurchaseDetailTable extends Component
 
     protected $listeners = ['refreshTableDetail' => '$refresh'];
 
-    public function mount()
+    public function readtData()
     {
         $this->purchase_details = TemporaryPurchase::where('user_id', auth()->user()->id)->get();
     }
 
     public function render()
     {
-        return view('livewire.purchase.purchase-detail-table');
+        return view('livewire.purchase.purchase-detail-table', ['purchase_detail' => $this->readtData()]);
     }
 }

@@ -23,10 +23,11 @@
 
     @include('include.modal-xl')
     @include('include.modal-search')
+    <div id="dialog"></div>
 </div>
 
 @push('css')
-    <link rel="stylesheet" href="/assets/extensions/sweetalert2/sweetalert2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @push('js')
@@ -35,6 +36,7 @@
         const myModalXl = new bootstrap.Modal(document.getElementById("modal-xl"), {})
         const myModal = new bootstrap.Modal(document.getElementById("modal-search"), {})
         const btnSearchSupplier = document.getElementById("btn-search-supplier")
+        const cureCodeInput = document.getElementById('cureCode')
 
         btnSearchSupplier.addEventListener("click", event => {
             event.preventDefault()
@@ -47,11 +49,33 @@
 
         window.addEventListener('modal-hide', event => {
             myModalXl.hide()
+            alertSuccess('Data obat masuk berhasil disimpan.')
+        })
+
+        window.addEventListener('code-not-found', event => {
+            cureCodeInput.focus()
+            alertError('Kode obat tidak ditemukan!')
+        })
+
+        const alertSuccess = (message) => {
             Swal.fire(
                 "Berhasil",
-                "Data obat masuk berhasil disimpan.",
+                message,
                 "success"
             )
-        })
+        }
+
+        const alertError = (message) => {
+            Swal.fire(
+                "Gagal",
+                message,
+                "error"
+            )
+        }
+
+        document.getElementById("btn-search-cure").addEventListener("click", function(event){
+            event.preventDefault()
+            window.open('/search-cure','popUpWindow','height=400,width=800,left=200,top=200,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no, status=no')
+        });
     </script>
 @endpush
