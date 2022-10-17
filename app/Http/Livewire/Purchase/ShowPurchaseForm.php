@@ -15,15 +15,18 @@ class ShowPurchaseForm extends Component
     ];
 
     protected $listeners = [
-        'showEdit:purchase' => 'edit',
-        'modal:close' => 'modalClose',
-        'store:purchase' => 'store',
-        'update:purchase' => 'update',
+        'show:modalSupplier' => 'showModalSupplier',
+        'show:modalCure' => 'showModalCure',
     ];
 
-    public function addDetail()
+    public function showModalCure()
     {
-        
+        $this->dispatchBrowserEvent('modal-show-cure');
+    }
+
+    public function showModalSupplier()
+    {
+        $this->dispatchBrowserEvent('modal-show-supplier');
     }
 
     public function edit(Purchase $purchase)
@@ -64,6 +67,6 @@ class ShowPurchaseForm extends Component
 
     public function render()
     {
-        return view('livewire.purchase.show-purchase-form');
+        return view('livewire.purchase.show-purchase-form')->extends('layouts.app');
     }
 }

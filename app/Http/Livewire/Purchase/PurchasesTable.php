@@ -25,7 +25,7 @@ class PurchasesTable extends DataTableComponent
             ->setConfigurableAreas([
                 'toolbar-right-start' => [
                     'include.btn-add', [
-                        'action' => '$emit("create:purchase")'
+                        'action' => '/purchases/create'
                     ]
                 ],
             ])            

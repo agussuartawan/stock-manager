@@ -3,12 +3,13 @@
         <label for="code" class="form-label">Supplier</label>
         <div class="input-group mb-3">
             <input type="hidden" wire:model="supplier_id">
-            <input type="text" class="form-control col-2 @error('name') is-invalid @enderror" id="code"
-                wire:model="code" placeholder="Kode">
-            <input type="text" class="form-control @error('supplierName') is-invalid @enderror" id="supplierName"
-                wire:model="supplierName" placeholder="Nama Supplier">
-            <button class="input-group-text btn btn-secondary icon icon-left" id="btn-search-supplier"><i
-                    class="bi bi-search"></i></button>
+            <input type="text" class="form-control @error('supplier_name') is-invalid @enderror" id="supplier_name"
+                wire:model="supplier_name" placeholder="Cari Supplier">
+
+            <button class="input-group-text btn btn-secondary icon icon-left" id="btn-search-supplier"
+                wire:click.prevent="$emit('show:modalSupplier')">
+                <i class="bi bi-search"></i>
+            </button>
             @error('supplier_id')
                 <div class="invalid-feedback">
                     {{ $message }}

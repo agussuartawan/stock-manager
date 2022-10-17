@@ -5,6 +5,7 @@ use App\Http\Livewire\Rack\ShowRacks;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Livewire\CureType\ShowCureTypes;
+use App\Http\Livewire\Purchase\ShowPurchaseForm;
 use App\Http\Livewire\Purchase\ShowPurchases;
 use App\Http\Livewire\Sale\ShowSales;
 use App\Http\Livewire\Unit\ShowUnits;
@@ -61,14 +62,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/purchases', ShowPurchases::class)
             ->name('purchases.index');
 
-        Route::get('/search-cure', function (Request $request) {
-            $cures = Cure::take(10)->get();
-            if ($request->search) {
-                $cures = Cure::where('name', 'like', '%' . $request->search . '%')->take(10)->get();
-            }
-            $request->flash();
-            return view('include.purchase.cure-dialog', compact('cures'));
-        });
+        Route::get('/purchases/create', ShowPurchaseForm::class)
+            ->name('purchases.create');
     });
 
     Route::group(['middleware' => 'can:akses obat masuk'], function () {

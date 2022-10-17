@@ -50,6 +50,24 @@
                     </a>
                 </li>
 
+                @can('akses supplier')
+                    <li class="sidebar-item{{ request()->is('suppliers*') ? ' active' : '' }}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-box-fill"></i>
+                            <span>Master Supplier</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('akses pelanggan')
+                    <li class="sidebar-item{{ request()->is('customers*') ? ' active' : '' }}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-box-fill"></i>
+                            <span>Master Pelanggan</span>
+                        </a>
+                    </li>
+                @endcan
+
                 @can('akses obat')
                     <li class="sidebar-item{{ request()->is('cures*') ? ' active' : '' }}">
                         <a href="{{ route('cures.index') }}" class='sidebar-link'>

@@ -26,7 +26,19 @@ class PurchaseDetailForm extends Component
         'date' => 'Tanggal kedaluarsa tidak boleh kosong',
     ];
 
-    protected $listeners = ['editDetail' => 'edit', 'deleteDetail' => 'delete'];
+    protected $listeners = [
+        'editDetail' => 'edit', 
+        'deleteDetail' => 'delete',
+        'choose:cure' => 'chooseCure'
+    ];
+
+    public function chooseCure(Cure $cure)
+    {
+        $this->cure_id = $cure->id;
+        $this->cure_name = $cure->name;
+        $this->price = $cure->purchase_price;
+        $this->dispatchBrowserEvent('modal-hide-cure');
+    }
 
     public function store()
     {
@@ -75,27 +87,9 @@ class PurchaseDetailForm extends Component
         $this->emit('refreshTableDetail');
     }
 
-    public function setCureId($by_code)
-    {
-        if ($by_code) {
-            $cure = Cure::where('code', $this->cure_code)->select('id', 'name')->first();
-            if ($cure) {
-                $this->cure_id = $cure->id;
-                $this->cure_name = $cure->name;
-            } else {
-                $this->dispatchBrowserEvent('code-not-found');
-            }
-        }
-    }
-
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
-    }
-
-    public function mount()
-    {
-        $this->series = Cure::select('id', 'name')->get();
     }
 
     public function render()
