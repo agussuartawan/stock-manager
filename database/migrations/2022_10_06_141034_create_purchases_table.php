@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(Supplier::class)->constrained()->onUpdate('cascade');
             $table->string('code')->unique();
             $table->date('date')->useCurrent();
+            $table->decimal('grand_total', $precission = 18, $scale = 2)->default(0);
             $table->timestamps();
         });
     }

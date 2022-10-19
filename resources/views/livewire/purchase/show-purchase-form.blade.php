@@ -17,11 +17,17 @@
                 </nav>
             </div>
         </div>
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Berhasil..</strong> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
     </div>
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <form multiple>
+                <form>
                     <livewire:purchase.purchase-main-form />
 
                     <hr>
@@ -36,6 +42,11 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-primary" wire:click.prevent="$emit('save:transaction')">Simpan
+                            Transaksi</button>
                     </div>
                 </form>
             </div>
@@ -123,18 +134,10 @@
 @endpush
 
 @push('js')
-    <script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
     <script>
         const modalSearchSupplier = new bootstrap.Modal(document.getElementById("modal-search-supplier"), {})
-        const btnSearchSupplier = document.getElementById("btn-search-supplier")
 
         const modalSearchCure = new bootstrap.Modal(document.getElementById("modal-search-cure"), {})
-        const btnSearchCure = document.getElementById("btn-search-cure")
-
-        btnSearchSupplier.addEventListener("click", event => {
-            event.preventDefault()
-            myModal.show()
-        })
 
         window.addEventListener('modal-show-supplier', event => {
             modalSearchSupplier.show()
@@ -152,20 +155,8 @@
             modalSearchCure.hide()
         })
 
-        const alertSuccess = (message) => {
-            Swal.fire(
-                "Berhasil",
-                message,
-                "success"
-            )
-        }
-
-        const alertError = (message) => {
-            Swal.fire(
-                "Gagal",
-                message,
-                "error"
-            )
-        }
+        window.addEventListener('alert-error', event => {
+            alert("Terjadi kesalahan.")
+        })
     </script>
 @endpush

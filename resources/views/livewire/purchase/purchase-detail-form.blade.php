@@ -1,6 +1,14 @@
 <thead>
     <tr>
         <th>
+            <label for="" class="form-label">Kedaluarsa</label>
+            <div class="input-group">
+                <input type="date" class="form-control @error('expired') is-invalid @enderror" id="expired"
+                    wire:model="expired">
+            </div>
+        </th>
+
+        <th>
             <label for="" class="form-label">Cari Obat</label>
             <div class="input-group">
                 <input type="hidden" wire:model="cure_id" id="cure_id">
@@ -12,6 +20,7 @@
                     wire:click.prevent="$emit('show:modalCure')"><i class="bi bi-search"></i></button>
             </div>
         </th>
+
         <th>
             <label for="" class="form-label">Jumlah</label>
             <div class="input-group">
@@ -19,20 +28,15 @@
                     wire:model="qty" placeholder="Jumlah">
             </div>
         </th>
-        <th>
+
+        <th colspan="2">
             <label for="" class="form-label">Harga</label>
             <div class="input-group">
                 <input type="text" class="form-control @error('price') is-invalid @enderror" id="price"
                     wire:model="price" placeholder="Harga jual">
             </div>
         </th>
-        <th>
-            <label for="" class="form-label">Expired</label>
-            <div class="input-group">
-                <input type="date" class="form-control @error('expired') is-invalid @enderror" id="expired"
-                    wire:model="expired">
-            </div>
-        </th>
+
         <th>
             <label for="" class="text-white form-label">Aksi</label>
             <div class="input-group">

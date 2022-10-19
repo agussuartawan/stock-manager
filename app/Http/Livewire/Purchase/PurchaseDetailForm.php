@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class PurchaseDetailForm extends Component
 {
-    public $cure_id, $qty, $price, $expired, $cure_code, $cure_name;
+    public $cure_id, $qty, $price, $expired, $cure_name;
     public $buttonLabel = 'Tambah';
     public $buttonAction = 'store';
 
@@ -58,9 +58,8 @@ class PurchaseDetailForm extends Component
     {
         $this->cure_id = $temporaryPurchase->cure_id;
         $this->qty = $temporaryPurchase->qty;
-        $this->price = $temporaryPurchase->price;
+        $this->price = round($temporaryPurchase->price);
         $this->expired = $temporaryPurchase->expired;
-        $this->cure_code = $temporaryPurchase->cure->code;
         $this->cure_name = $temporaryPurchase->cure->name;
         $this->buttonAction = 'update(' . $temporaryPurchase->id . ')';
         $this->buttonLabel = 'Edit';

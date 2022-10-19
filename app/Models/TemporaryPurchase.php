@@ -16,15 +16,22 @@ class TemporaryPurchase extends Model
         return $this->belongsTo(Cure::class);
     }
 
-    public function getPriceAttribute($value)
-    {
-        return idr($value);
-    }
-
     protected static function booted()
     {
         static::creating(function ($temporaryPurchase) {
             $temporaryPurchase->user_id = auth()->user()->id;
+            $temporaryPurchase->subtotal = (int)$temporaryPurchase->qty * (int)$temporaryPurchase->price;
+            // dd();
         });
+
+        static::updating(function ($temporaryPurchase) {
+            $temporaryPurchase->user_id = auth()->user()->id;
+            $temporaryPurchase->subtotal = (int)$temporaryPurchase->qty * (int)$temporaryPurchase->price;
+        });
+    }
+
+    public static function getGrandTotal()
+    {
+        return TemporaryPurchase::where('user_id', auth()->user()->id)->sum('subtotal');
     }
 }

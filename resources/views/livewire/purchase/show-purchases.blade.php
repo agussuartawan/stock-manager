@@ -21,7 +21,6 @@
         <livewire:purchase.purchases-table />
     </section>
 </div>
-
 @push('js')
     <script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
     <script>

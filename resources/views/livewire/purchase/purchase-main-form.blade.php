@@ -3,7 +3,7 @@
         <label for="code" class="form-label">Supplier</label>
         <div class="input-group mb-3">
             <input type="hidden" wire:model="supplier_id">
-            <input type="text" class="form-control @error('supplier_name') is-invalid @enderror" id="supplier_name"
+            <input type="text" class="form-control @error('supplier_id') is-invalid @enderror" id="supplier_name"
                 wire:model="supplier_name" placeholder="Cari Supplier">
 
             <button class="input-group-text btn btn-secondary icon icon-left" id="btn-search-supplier"
@@ -35,6 +35,13 @@
         <div class="mb-3">
             <label for="code" class="form-label">No. Obat Keluar</label>
             <input type="text" class="form-control" id="code" wire:model="code" disabled>
+        </div>
+    </div>
+    <div class="col-lg-12 d-flex justify-content-center">
+        <div wire:loading class="">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
     </div>
 </div>

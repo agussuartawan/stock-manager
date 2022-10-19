@@ -7,17 +7,13 @@ use Livewire\Component;
 
 class PurchaseDetailTable extends Component
 {
-    public $purchase_detail;
-
     protected $listeners = ['refreshTableDetail' => '$refresh'];
-
-    public function readData()
-    {
-        $this->purchase_details = TemporaryPurchase::where('user_id', auth()->user()->id)->get();
-    }
 
     public function render()
     {
-        return view('livewire.purchase.purchase-detail-table', ['purchase_detail' => $this->readData()]);
+        return view('livewire.purchase.purchase-detail-table', [
+            'purchase_details' => TemporaryPurchase::where('user_id', auth()->user()->id)->get(),
+            'grand_total' => idr(TemporaryPurchase::getGrandTotal())
+        ]);
     }
 }

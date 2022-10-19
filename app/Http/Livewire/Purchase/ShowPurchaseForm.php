@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Purchase;
 
 use App\Models\Purchase;
+use App\Models\TemporaryPurchase;
 use Livewire\Component;
 
 class ShowPurchaseForm extends Component
@@ -17,7 +18,13 @@ class ShowPurchaseForm extends Component
     protected $listeners = [
         'show:modalSupplier' => 'showModalSupplier',
         'show:modalCure' => 'showModalCure',
+        'alert:error' => 'alertError',
     ];
+
+    public function alertError()
+    {
+        $this->dispatchBrowserEvent('alert-error');
+    }
 
     public function showModalCure()
     {

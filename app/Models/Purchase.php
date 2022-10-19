@@ -13,12 +13,28 @@ class Purchase extends Model
     protected $fillable = [
         'supplier_id',
         'date',
-        'code'
+        'code',
+        'grand_total'
     ];
+
+    public static function getNextCode()
+    {
+        $purchase_count = Purchase::count();
+        if ($purchase_count == 0) {
+            $number = 10001;
+            $fullnumber = 'PMB' . $number;
+        } else {
+            $number = Purchase::all()->last();
+            $number_plus = (int)substr($number->code, -5) + 1;
+            $fullnumber = 'PMB' . $number_plus;
+        }
+
+        return $fullnumber;
+    }
 
     function cure()
     {
-        return $this->belongsToMany(Cure::class)->withPivot('qty',' price', 'expired');
+        return $this->belongsToMany(Cure::class)->withPivot('qty',' price', 'expired', 'subtotal');
     }
 
     public function supplier()

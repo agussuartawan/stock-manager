@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained();
             $table->integer('qty');
             $table->decimal('price', $precission = 18, $scale = 2);
+            $table->decimal('subtotal', $precission = 18, $scale = 2);
             $table->date('expired');
             $table->timestamps();
         });

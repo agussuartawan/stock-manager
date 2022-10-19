@@ -10,7 +10,7 @@ class Sale extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'date', 'customer_id'];
+    protected $fillable = ['code', 'date', 'customer_id', 'grand_total'];
 
     public function cure()
     {
