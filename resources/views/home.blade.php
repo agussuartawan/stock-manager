@@ -16,13 +16,50 @@
                     <h4 class="card-title">Example Content</h4>
                 </div>
                 <div class="card-body">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quas omnis
-                    laudantium tempore
-                    exercitationem, expedita aspernatur sed officia asperiores unde tempora maxime odio
-                    reprehenderit
-                    distinctio incidunt! Vel aspernatur dicta consequatur!
+                    <div id="container" style="width:100%; height:400px;"></div>
                 </div>
             </div>
         </section>
     </div>
 @endsection
+
+@push('js')
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script>
+        const categories = {!! $categories !!}
+        const purchases = {{ $purchases }}
+        const sales = {{ $sales }}
+        document.addEventListener('DOMContentLoaded', function() {
+            const chart = Highcharts.chart('container', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Pembelian & Penjualan'
+                },
+                xAxis: {
+                    categories: categories
+                },
+                yAxis: {
+                    title: {
+                        text: 'Jumlah'
+                    }
+                },
+                series: [{
+                    name: 'Pembelian',
+                    data: purchases
+                }, {
+                    name: 'Penjualan',
+                    data: sales
+                }],
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+            });
+        });
+    </script>
+@endpush
