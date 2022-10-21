@@ -4,13 +4,16 @@ use App\Http\Livewire\Cure\ShowCures;
 use App\Http\Livewire\Rack\ShowRacks;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReportController;
 use App\Http\Livewire\CureType\ShowCureTypes;
 use App\Http\Livewire\Purchase\ShowPurchaseForm;
 use App\Http\Livewire\Purchase\ShowPurchases;
+use App\Http\Livewire\Report\ShowStocks;
 use App\Http\Livewire\Sale\ShowSales;
 use App\Http\Livewire\Unit\ShowUnits;
 use App\Models\Cure;
 use Illuminate\Http\Request;
+use Spatie\Permission\Commands\Show;
 use Symfony\Component\Console\Input\Input;
 
 /*
@@ -62,12 +65,20 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/purchases', ShowPurchases::class)
             ->name('purchases.index');
 
-        Route::get('/purchases/create', ShowPurchaseForm::class)
-            ->name('purchases.create');
+        Route::get('/purchases/form', ShowPurchaseForm::class)
+            ->name('purchases.form');
     });
 
     Route::group(['middleware' => 'can:akses obat masuk'], function () {
         Route::get('/sales', ShowSales::class)
             ->name('sales.index');
+    });
+
+    Route::group(['middleware' => 'can:akses laporan'], function () {
+        Route::get('/report/stocks', ShowStocks::class)
+            ->name('report.stocks');
+        Route::get('/report/stocks/print', [ReportController::class, 'printStock'])
+            ->name('report.stocks.print');
+        
     });
 });

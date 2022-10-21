@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Stock extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['cure_id', 'amount', 'expired_date'];
+
+    public function cure()
+    {
+        return $this->belongsTo(Cure::class);
+    }
 }

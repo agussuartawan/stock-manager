@@ -39,7 +39,7 @@ class PurchaseMainForm extends Component
                     'supplier_id' => $this->supplier_id,
                     'date' => $this->date,
                 ]);
-                return to_route('purchases.create')->with('success', 'Data obat masuk berhasil disimpan');
+                return to_route('purchases.form')->with('success', 'Data obat masuk berhasil disimpan');
             // } catch (\Throwable $th) {
                 $this->emit("alert:error");
             // }

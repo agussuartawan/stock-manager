@@ -74,6 +74,6 @@ class ShowPurchaseForm extends Component
 
     public function render()
     {
-        return view('livewire.purchase.show-purchase-form')->extends('layouts.app');
+        return view('livewire.purchase.show-purchase-form', ['title' => 'Tambah Obat Masuk'])->extends('layouts.app');
     }
 }

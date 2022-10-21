@@ -4,7 +4,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Tambah Obat Masuk</h3>
+                <h3>{{ $title }}</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -103,17 +103,9 @@
                         <div class="col-lg-12">
                             <table class="table table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th>Kode</th>
-                                        <th>Nama</th>
-                                        <th>Harga Beli</th>
-                                        <th>Harga Jual</th>
-                                        <th>#</th>
-                                    </tr>
+                                    @livewire('cure.search-cure-form')
                                 </thead>
                                 <tbody>
-                                    @livewire('cure.search-cure-form')
-
                                     @livewire('cure.search-cure-table')
                                 </tbody>
                             </table>

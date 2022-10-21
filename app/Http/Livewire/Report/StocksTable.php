@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Http\Livewire\Purchase;
+namespace App\Http\Livewire\Report;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
-use App\Models\Purchase;
+use App\Models\Stock;
 
-class PurchasesTable extends DataTableComponent
+class StocksTable extends DataTableComponent
 {
-    protected $model = Purchase::class;
-
-    protected $listeners = ['refresh:table' => '$refresh'];
+    protected $model = Stock::class;
 
     public function configure(): void
     {
@@ -25,8 +22,9 @@ class PurchasesTable extends DataTableComponent
             ->setConfigurableAreas([
                 'toolbar-right-start' => [
                     'include.btn-add', [
-                        'action' => '/purchases/form',
+                        'action' => '/report/stocks/print',
                         'noEmit' => true,
+                        'title' => 'Print'
                     ]
                 ],
             ])            
@@ -46,23 +44,20 @@ class PurchasesTable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable(),
-            Column::make("Kode Obat Masuk", "code")
-                ->sortable()
-                ->searchable(),
-            Column::make("Nama Supplier", "supplier.name")
-                ->sortable()
-                ->searchable(),
-            Column::make("Tanggal", "date")
-                ->sortable()
-                ->searchable(),
-            LinkColumn::make('Aksi')
-            ->title(fn ($row) => 'edit')
-            ->location(fn ($row) => '#')
-            ->attributes(fn ($row) => [
-                'class' => 'badge rounded-pill bg-primary',
-                'title' => 'Edit ' . $row->code,
-                "wire:click" => '$emit(`edit:purchase`,' . $row->id . ')'
-            ]),
+            Column::make("Nama Obat", "cure.name")
+                ->sortable(),
+            Column::make("Stock", "amount")
+                ->sortable(),
+            Column::make("Tgl Kedaluarsa", "expired_date")
+                ->sortable(),
+            // LinkColumn::make('Aksi')
+            // ->title(fn ($row) => 'edit')
+            // ->location(fn ($row) => '#')
+            // ->attributes(fn ($row) => [
+            //     'class' => 'badge rounded-pill bg-primary',
+            //     'title' => 'Edit ' . $row->code,
+            //     "wire:click" => '$emit(`edit:purchase`,' . $row->id . ')'
+            // ])
         ];
     }
 }

@@ -123,21 +123,22 @@
                 @endcan
 
                 @can('akses laporan')
-                    <li class="sidebar-item  has-sub">
+                    <li class="sidebar-item{{ request()->is('report*') ? ' active' : '' }} has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-clipboard-minus-fill"></i>
                             <span>Laporan</span>
                         </a>
-                        <ul class="submenu active">
-                            <li class="submenu-item active">
-                                <a href="component-alert.html">Stok Obat</a>
+                        <ul
+                            class="submenu{{ request()->is('report*') || request()->is('report/stocks') || request()->is('report/purchases') || request()->is('report/purchases') || request()->is('report/sales') ? ' active' : '' }}">
+                            <li class="submenu-item{{ request()->is('report/stocks') ? ' active' : '' }}">
+                                <a href="{{ route('report.stocks') }}">Stok Obat</a>
                             </li>
 
-                            <li class="submenu-item ">
+                            <li class="submenu-item{{ request()->is('report/purchases') ? ' active' : '' }}">
                                 <a href="component-alert.html">Data Obat Masuk</a>
                             </li>
 
-                            <li class="submenu-item ">
+                            <li class="submenu-item{{ request()->is('report/sales') ? ' active' : '' }}">
                                 <a href="component-alert.html">Data Obat Keluar</a>
                             </li>
                         </ul>
