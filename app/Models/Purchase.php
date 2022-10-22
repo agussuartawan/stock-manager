@@ -34,7 +34,7 @@ class Purchase extends Model
 
     function cure()
     {
-        return $this->belongsToMany(Cure::class)->withPivot('qty',' price', 'expired', 'subtotal');
+        return $this->belongsToMany(Cure::class)->withPivot('id', 'qty', 'price', 'expired', 'subtotal');
     }
 
     public function supplier()

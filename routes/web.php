@@ -65,8 +65,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/purchases', ShowPurchases::class)
             ->name('purchases.index');
 
-        Route::get('/purchases/form', ShowPurchaseForm::class)
-            ->name('purchases.form');
+        Route::get('/purchases/form/{id}', ShowPurchaseForm::class)
+                ->name('purchases.edit');
+
+        Route::get('/purchases/form/0', ShowPurchaseForm::class)
+            ->name('purchases.create');
+
     });
 
     Route::group(['middleware' => 'can:akses obat masuk'], function () {

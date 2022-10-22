@@ -25,7 +25,7 @@ class PurchasesTable extends DataTableComponent
             ->setConfigurableAreas([
                 'toolbar-right-start' => [
                     'include.btn-add', [
-                        'action' => '/purchases/form',
+                        'action' => route('purchases.create'),
                         'noEmit' => true,
                     ]
                 ],
@@ -57,11 +57,10 @@ class PurchasesTable extends DataTableComponent
                 ->searchable(),
             LinkColumn::make('Aksi')
             ->title(fn ($row) => 'edit')
-            ->location(fn ($row) => '#')
+            ->location(fn ($row) => route('purchases.edit', $row->id))
             ->attributes(fn ($row) => [
                 'class' => 'badge rounded-pill bg-primary',
                 'title' => 'Edit ' . $row->code,
-                "wire:click" => '$emit(`edit:purchase`,' . $row->id . ')'
             ]),
         ];
     }

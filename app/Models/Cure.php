@@ -70,4 +70,9 @@ class Cure extends Model
 
         return $fullnumber;
     }
+
+    public function purchase()
+    {
+        return $this->belongsToMany(Purchase::class)->withPivot('qty', 'price', 'expired', 'subtotal');
+    }
 }

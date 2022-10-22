@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Purchase;
 use App\Models\Purchase;
 use App\Models\Supplier;
 use App\Models\TemporaryPurchase;
+use Carbon\Carbon;
 use Livewire\Component;
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -17,7 +18,8 @@ class PurchaseMainForm extends Component
 
     protected $listeners = [
         'choose:supplier' => 'chooseSupplier',
-        'save:transaction' => 'store'
+        'save:transaction' => 'store',
+        'edit:transaction' => 'update',
     ];
 
     protected $rules = [
@@ -33,17 +35,35 @@ class PurchaseMainForm extends Component
     public function store()
     {
         $this->validate();
-        if(TemporaryPurchase::where("user_id", auth()->user()->id)->exists()){
-            // try {
+        try {
+            if(TemporaryPurchase::where("user_id", auth()->user()->id)->exists()){
                 Purchase::create([
                     'supplier_id' => $this->supplier_id,
                     'date' => $this->date,
                 ]);
                 return to_route('purchases.form')->with('success', 'Data obat masuk berhasil disimpan');
-            // } catch (\Throwable $th) {
+            } else {
                 $this->emit("alert:error");
-            // }
-        } else {
+            }
+        } catch (\Throwable $th) {
+            $this->emit("alert:error");
+        }
+    }
+
+    public function update(Purchase $purchase)
+    {
+        $this->validate();
+        try {
+            if($purchase->cure()->exists()){
+                $purchase->update([
+                    'supplier_id' => $this->supplier_id,
+                    'date' => $this->date,
+                ]);
+                return to_route('purchases.form')->with('success', 'Data obat masuk berhasil disimpan');
+            } else {
+                $this->emit("alert:error");
+            }
+        } catch (\Throwable $th) {
             $this->emit("alert:error");
         }
     }
@@ -55,10 +75,19 @@ class PurchaseMainForm extends Component
         $this->dispatchBrowserEvent('modal-hide-supplier');
     }
 
-    public function mount()
+    public function mount($purchase)
     {
-        $this->date = date('Y-m-d');
-        $this->code = Purchase::getNextCode();
+        if($purchase){
+            $this->supplier_id = $purchase->id;
+            $this->supplier_name = $purchase->supplier->name;
+            $this->date = Carbon::createFromFormat('d/m/Y', $purchase->date)->format('Y-m-d');
+            $this->code = $purchase->code;
+        } else {
+            $this->supplier_id = null;
+            $this->supplier_name = null;
+            $this->date = date('Y-m-d');
+            $this->code = Purchase::getNextCode();
+        }
     }
 
     public function render()

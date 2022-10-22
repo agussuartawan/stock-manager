@@ -41,7 +41,7 @@ class ShowRackForm extends Component
 
     public function store()
     {
-        Rack::create($this->validate());
+        $rack = Rack::create($this->validate());
         $this->emit('refresh:table');
         $this->dispatchBrowserEvent('modal-hide');
         $this->resetForm();

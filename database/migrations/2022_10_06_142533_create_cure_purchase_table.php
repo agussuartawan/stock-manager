@@ -16,6 +16,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('cure_purchase', function (Blueprint $table) {
+            $table->id();
             $table->foreignIdFor(Cure::class)->constrained()->onUpdate('cascade');
             $table->foreignIdFor(Purchase::class)->constrained()->onUpdate('cascade');
             $table->integer('qty');

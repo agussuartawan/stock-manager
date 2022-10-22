@@ -28,7 +28,7 @@
         <div class="card">
             <div class="card-body">
                 <form>
-                    <livewire:purchase.purchase-main-form />
+                    <livewire:purchase.purchase-main-form :purchase="$purchase" />
 
                     <hr>
 
@@ -36,16 +36,16 @@
                         <div class="col-lg-12">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hovered" style="min-width: 50rem">
-                                    <livewire:purchase.purchase-detail-form />
+                                    <livewire:purchase.purchase-detail-form :purchase="$purchase" />
 
-                                    <livewire:purchase.purchase-detail-table />
+                                    <livewire:purchase.purchase-detail-table :purchase="$purchase" />
                                 </table>
                             </div>
                         </div>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary" wire:click.prevent="$emit('save:transaction')">Simpan
+                        <button class="btn btn-primary" wire:click.prevent="{{ $emitAction }}">Simpan
                             Transaksi</button>
                     </div>
                 </form>

@@ -3,11 +3,14 @@
 namespace App\Http\Livewire\Purchase;
 
 use App\Models\Purchase;
-use App\Models\TemporaryPurchase;
 use Livewire\Component;
 
 class ShowPurchaseForm extends Component
 {
+    public $purchase;
+    public $title;
+    public $emitAction;
+
     protected $rules = [];
 
     protected $messages = [
@@ -72,8 +75,26 @@ class ShowPurchaseForm extends Component
         $this->validateOnly($propertyName);
     }
 
+    public function mount($id)
+    {
+        if($id > 0){
+            $purchase = Purchase::findOrFail($id);
+            $this->purchase = $purchase;
+            $this->title = 'Edit Obat Masuk';
+            $this->emitAction = '$emit(`edit:transaction`,'. $purchase->id .')';
+        } else {
+            $this->purchase = null;
+            $this->title = 'Tambah Obat Masuk';
+            $this->emitAction = '$emit(`save:transaction`)';
+        }
+    }
+
     public function render()
     {
-        return view('livewire.purchase.show-purchase-form', ['title' => 'Tambah Obat Masuk'])->extends('layouts.app');
+        return view('livewire.purchase.show-purchase-form', [
+            'title' => $this->title,
+            'purchase' => $this->purchase,
+            'emitAction' => $this->emitAction,
+        ])->extends('layouts.app');
     }
 }
