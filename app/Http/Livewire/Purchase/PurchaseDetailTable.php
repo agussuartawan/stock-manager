@@ -26,8 +26,8 @@ class PurchaseDetailTable extends Component
 
     public function refresh($purchase)
     {
-        $purchase = Purchase::find($purchase['id']);
         if($purchase){
+            $purchase = Purchase::find($purchase['id']);
             $this->purchaseDetails = $purchase->cure()->get();
             $this->grandTotal = idr($purchase->grand_total);
         } else {

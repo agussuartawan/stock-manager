@@ -58,7 +58,7 @@ class PurchaseDetailForm extends Component
             'price' => $this->price,
             'expired' => $this->expired,
         ]);
-        $this->emit('refreshTableDetail');
+        $this->emit('refreshTableDetail', []);
         $this->resetForm();
     }
 
@@ -108,32 +108,34 @@ class PurchaseDetailForm extends Component
                 'expired' => $this->expired,
                 'subtotal' => $subtotal
             ]);
-            event(CurePurchaseChanged::class, $this->purchase);
+            event(new CurePurchaseChanged($this->purchase));
         });
         event(new CurePurchaseChanged($this->purchase));
+        $this->emit('refreshTableDetail', $this->purchase);
         $this->resetForm();
     }
 
     public function editDetail($id)
     {
-        $purchaseCure = $this->purchase->cure()->where('id', $id)->first();
-        $this->cure_id = $purchaseCure->cure_id;
-        $this->qty = $purchaseCure->qty;
-        $this->price = round($purchaseCure->price);
-        $this->expired = $purchaseCure->expired;
-        $this->cure_name = $purchaseCure->cure->name;
-        $this->buttonAction = 'updateDetail(' . $purchaseCure->id . ')';
+        $purchaseDetail = CurePurchase::where('id', $id)->where('purchase_id', $this->purchase['id'])->first();
+        $this->cure_id = $purchaseDetail->cure_id;
+        $this->qty = $purchaseDetail->qty;
+        $this->price = round($purchaseDetail->price);
+        $this->expired = $purchaseDetail->expired;
+        $this->cure_name = $purchaseDetail->cure->name;
+        $this->buttonAction = 'updateDetail(' . $purchaseDetail->id . ')';
         $this->buttonLabel = 'Edit';
     }
 
     public function updateDetail($id)
     {
         $this->validate();
-        $purchaseCure = $this->purchase->cure()->where('id', $id)->first();
+        $purchaseDetail = CurePurchase::where('id', $id)->where('purchase_id', $this->purchase['id'])->first();
 
-        DB::transaction(function() use($purchaseCure){
+        DB::transaction(function() use($purchaseDetail){
             $subtotal = (int)$this->qty * (int)$this->price;
-            $purchaseCure->update([
+            $purchaseDetail->update([
+                'purchase_id' => $this->purchase['id'],
                 'cure_id' => $this->cure_id,
                 'qty' => $this->qty,
                 'price' => $this->price,
