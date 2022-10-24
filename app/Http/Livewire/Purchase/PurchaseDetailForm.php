@@ -44,7 +44,7 @@ class PurchaseDetailForm extends Component
     {
         $this->cure_id = $cure->id;
         $this->cure_name = $cure->name;
-        $this->price = $cure->purchase_price;
+        $this->price = rounded($cure->purchase_price);
         $this->dispatchBrowserEvent('modal-hide-cure');
     }
 
@@ -83,7 +83,7 @@ class PurchaseDetailForm extends Component
             'expired' => $this->expired,
         ]);
         $this->resetForm();
-        $this->emit('refreshTableDetail');
+        $this->emit('refreshTableDetail', []);
         $this->buttonLabel = 'Tambah';
         $this->buttonAction = 'storeTemporaryDetail';
     }
@@ -91,7 +91,7 @@ class PurchaseDetailForm extends Component
     public function deleteTemporaryDetail(TemporaryPurchase $temporaryPurchase)
     {
         $temporaryPurchase->delete();
-        $this->emit('refreshTableDetail');
+        $this->emit('refreshTableDetail', []);
     }
 
 
@@ -100,17 +100,15 @@ class PurchaseDetailForm extends Component
         $this->validate();
 
         DB::transaction(function(){
-            $subtotal = (int)$this->qty * (int)$this->price;
-            $this->purchase->cure()->attach($this->purchase->id, [
+            CurePurchase::create([
+                'purchase_id' => $this->purchase['id'],
                 'cure_id' => $this->cure_id,
                 'qty' => $this->qty,
                 'price' => $this->price,
                 'expired' => $this->expired,
-                'subtotal' => $subtotal
             ]);
             event(new CurePurchaseChanged($this->purchase));
         });
-        event(new CurePurchaseChanged($this->purchase));
         $this->emit('refreshTableDetail', $this->purchase);
         $this->resetForm();
     }
@@ -133,14 +131,12 @@ class PurchaseDetailForm extends Component
         $purchaseDetail = CurePurchase::where('id', $id)->where('purchase_id', $this->purchase['id'])->first();
 
         DB::transaction(function() use($purchaseDetail){
-            $subtotal = (int)$this->qty * (int)$this->price;
             $purchaseDetail->update([
                 'purchase_id' => $this->purchase['id'],
                 'cure_id' => $this->cure_id,
                 'qty' => $this->qty,
                 'price' => $this->price,
                 'expired' => $this->expired,
-                'subtotal' => $subtotal
             ]);
             event(new CurePurchaseChanged($this->purchase));
         });

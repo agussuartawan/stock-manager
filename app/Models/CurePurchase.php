@@ -11,7 +11,7 @@ class CurePurchase extends Model
 
     public $timestamps = false;
     protected $table = 'cure_purchase';
-    protected $fillable = ['cure_id', 'purchase_id', 'qty', 'price', 'subtotal'];
+    protected $fillable = ['cure_id', 'purchase_id', 'qty', 'price', 'subtotal', 'expired'];
 
     public function cure()
     {

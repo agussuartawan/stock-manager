@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Cure;
+use App\Models\CurePurchase;
 use App\Models\Purchase;
 use App\Observers\CureObserver;
+use App\Observers\CurePurchaseObserver;
 use App\Observers\PurchaseObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
@@ -25,6 +27,12 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\CurePurchaseChanged::class => [
             \App\Listeners\UpdateGrandTotalAfterCurePurchaseChanged::class,
         ],
+        \App\Events\CurePurchaseDeleted::class => [
+            \App\Listeners\UpdateStockAfterCurePurchaseDeleted::class,
+        ],
+        \App\Events\CurePurchaseCreated::class => [
+            \App\Listeners\UpdateStockAfterCurePurchaseCreated::class,
+        ],
     ];
 
     /**
@@ -36,6 +44,7 @@ class EventServiceProvider extends ServiceProvider
     {
         Cure::observe(CureObserver::class);
         Purchase::observe(PurchaseObserver::class);
+        CurePurchase::observe(CurePurchaseObserver::class);
     }
 
     /**

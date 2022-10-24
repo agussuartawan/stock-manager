@@ -39,37 +39,6 @@ class ShowPurchaseForm extends Component
         $this->dispatchBrowserEvent('modal-show-supplier');
     }
 
-    public function edit(Purchase $purchase)
-    {
-        $this->name = $purchase->name;
-    }
-
-    public function resetForm()
-    {
-        $this->name = '';
-    }
-
-    public function modalClose()
-    {
-        $this->resetForm();
-    }
-
-    public function store()
-    {
-        Purchase::create($this->validate());
-        $this->emit('refresh:table');
-        $this->dispatchBrowserEvent('modal-hide');
-        $this->resetForm();
-    }
-
-    public function update(Purchase $purchase)
-    {
-        $purchase->update($this->validate());
-        $this->emit('refresh:table');
-        $this->dispatchBrowserEvent('modal-hide');
-        $this->resetForm();
-    }
-
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
