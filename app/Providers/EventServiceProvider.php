@@ -27,12 +27,6 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\CurePurchaseChanged::class => [
             \App\Listeners\UpdateGrandTotalAfterCurePurchaseChanged::class,
         ],
-        \App\Events\CurePurchaseDeleted::class => [
-            \App\Listeners\UpdateStockAfterCurePurchaseDeleted::class,
-        ],
-        \App\Events\CurePurchaseCreated::class => [
-            \App\Listeners\UpdateStockAfterCurePurchaseCreated::class,
-        ],
     ];
 
     /**

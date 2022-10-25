@@ -135,7 +135,7 @@
                             </li>
 
                             <li class="submenu-item{{ request()->is('report/purchases') ? ' active' : '' }}">
-                                <a href="component-alert.html">Data Obat Masuk</a>
+                                <a href="{{ route('report.purchases') }}">Data Obat Masuk</a>
                             </li>
 
                             <li class="submenu-item{{ request()->is('report/sales') ? ' active' : '' }}">

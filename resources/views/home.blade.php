@@ -12,9 +12,6 @@
         </div>
         <section class="section">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Example Content</h4>
-                </div>
                 <div class="card-body">
                     <div id="container" style="width:100%; height:400px;"></div>
                 </div>
@@ -32,7 +29,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const chart = Highcharts.chart('container', {
                 chart: {
-                    type: 'line'
+                    type: 'column'
                 },
                 title: {
                     text: 'Pembelian & Penjualan'

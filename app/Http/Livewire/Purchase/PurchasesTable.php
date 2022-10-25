@@ -6,6 +6,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 use App\Models\Purchase;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 
 class PurchasesTable extends DataTableComponent
 {
@@ -55,12 +56,32 @@ class PurchasesTable extends DataTableComponent
             Column::make("Tanggal", "date")
                 ->sortable()
                 ->searchable(),
-            LinkColumn::make('Aksi')
-            ->title(fn ($row) => 'edit')
-            ->location(fn ($row) => route('purchases.edit', $row->id))
-            ->attributes(fn ($row) => [
-                'class' => 'badge rounded-pill bg-primary',
-                'title' => 'Edit ' . $row->code,
+            Column::make('Total', 'grand_total')
+                ->sortable()
+                ->format(function($value) {
+                    return idr($value);
+                }),
+            ButtonGroupColumn::make('Aksi')
+            ->attributes(function($row) {
+                return [
+                    'class' => 'py-2',
+                ];
+            })
+            ->buttons([
+                LinkColumn::make('Aksi')
+                ->title(fn ($row) => 'edit')
+                ->location(fn ($row) => route('purchases.edit', $row->id))
+                ->attributes(fn ($row) => [
+                    'class' => 'badge rounded-pill bg-primary',
+                    'title' => 'Edit ' . $row->code,
+                ]),
+                LinkColumn::make('Aksi')
+                ->title(fn ($row) => 'detail')
+                ->location(fn ($row) => route('purchases.show', $row->id))
+                ->attributes(fn ($row) => [
+                    'class' => 'badge rounded-pill bg-info',
+                    'title' => 'Detail ' . $row->code,
+                ]),
             ]),
         ];
     }

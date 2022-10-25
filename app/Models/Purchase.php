@@ -44,6 +44,6 @@ class Purchase extends Model
 
     public function getDateAttribute($value)
     {
-        return Carbon::parse($value)->format('d/m/Y');
+        return dateFormat($value);
     }
 }

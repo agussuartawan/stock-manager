@@ -14,7 +14,7 @@ class StocksTable extends DataTableComponent
     {
         $this->setPrimaryKey('id')
             ->setEmptyMessage('Tidak ada data')
-            ->setDefaultSort('id', 'desc')
+            ->setDefaultSort('cure_id', 'desc')
             ->setTableAttributes([
                 'class' => 'bg-white rounded-3 table-hover',
             ])
@@ -44,7 +44,11 @@ class StocksTable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable(),
+            Column::make("Kode Obat", "cure.code")
+                ->sortable(),
             Column::make("Nama Obat", "cure.name")
+                ->sortable(),
+            Column::make("Posisi Rak", "cure.rack.name")
                 ->sortable(),
             Column::make("Stock", "amount")
                 ->sortable(),
