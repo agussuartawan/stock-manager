@@ -21,6 +21,8 @@ class UserSeeder extends Seeder
     {
         DB::transaction(function () {
 			$cure = Permission::create(['name' => 'akses obat']);
+			$supplier = Permission::create(['name' => 'akses supplier']);
+			$customer = Permission::create(['name' => 'akses pelanggan']);
 			$type = Permission::create(['name' => 'akses jenis obat']);
 			$rack = Permission::create(['name' => 'akses rak obat']);
 			$unit = Permission::create(['name' => 'akses unit obat']);
@@ -32,7 +34,7 @@ class UserSeeder extends Seeder
 			$warehouse_role = Role::create(['name' => 'Kepala Gudang']);
 			$director_role = Role::create(['name' => 'Direktur']);
 
-			$warehouse_role->syncPermissions([$cure, $type, $rack], $cure_in, $cure_out, $unit);
+			$warehouse_role->syncPermissions([$cure, $type, $rack], $cure_in, $cure_out, $unit, $supplier, $customer);
 			$director_role->syncPermissions([$report]);
 
 			$admin = User::create([

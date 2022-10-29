@@ -6,12 +6,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Livewire\CureType\ShowCureTypes;
+use App\Http\Livewire\Customer\ShowCustomer;
 use App\Http\Livewire\Purchase\ShowDetail;
 use App\Http\Livewire\Purchase\ShowPurchaseForm;
 use App\Http\Livewire\Purchase\ShowPurchases;
 use App\Http\Livewire\Report\ShowPurchase;
 use App\Http\Livewire\Report\ShowStocks;
 use App\Http\Livewire\Sale\ShowSales;
+use App\Http\Livewire\Supplier\ShowSupplier;
 use App\Http\Livewire\Unit\ShowUnits;
 use App\Models\Cure;
 use Illuminate\Http\Request;
@@ -97,6 +99,15 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/report/stocks/print', [ReportController::class, 'printStock'])
             ->name('report.stocks.print');
-        
+    });
+
+    Route::group(['middleware' => 'can:akses supplier'], function () {
+        Route::get('/suppliers', ShowSupplier::class)
+            ->name('suppliers.index');
+    });
+
+    Route::group(['middleware' => 'can:akses pelanggan'], function () {
+        Route::get('/customers', ShowCustomer::class)
+            ->name('customers.index');
     });
 });

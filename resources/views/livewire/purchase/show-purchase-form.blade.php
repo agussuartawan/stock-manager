@@ -67,16 +67,9 @@
                         <div class="col-lg-12">
                             <table class="table table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th>Nama</th>
-                                        <th>Alamat</th>
-                                        <th>No Telp</th>
-                                        <th>#</th>
-                                    </tr>
+                                    @livewire('supplier.search-supplier-form')
                                 </thead>
                                 <tbody>
-                                    @livewire('supplier.search-supplier-form')
-
                                     @livewire('supplier.search-supplier-table')
                                 </tbody>
                             </table>
@@ -105,9 +98,7 @@
                                 <thead>
                                     @livewire('cure.search-cure-form')
                                 </thead>
-                                <tbody>
-                                    @livewire('cure.search-cure-table')
-                                </tbody>
+                                @livewire('cure.search-cure-table')
                             </table>
 
                         </div>

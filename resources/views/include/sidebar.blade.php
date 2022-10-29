@@ -52,7 +52,7 @@
 
                 @can('akses supplier')
                     <li class="sidebar-item{{ request()->is('suppliers*') ? ' active' : '' }}">
-                        <a href="#" class='sidebar-link'>
+                        <a href="{{ route('suppliers.index') }}" class='sidebar-link'>
                             <i class="bi bi-box-fill"></i>
                             <span>Master Supplier</span>
                         </a>
