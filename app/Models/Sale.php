@@ -26,4 +26,19 @@ class Sale extends Model
     {
         return Carbon::parse($value)->format('d/m/Y');
     }
+
+    public static function getNextCode()
+    {
+        $sale_count = Sale::count();
+        if ($sale_count == 0) {
+            $number = 10001;
+            $fullnumber = 'PNJ' . $number;
+        } else {
+            $number = Sale::all()->last();
+            $number_plus = (int)substr($number->code, -5) + 1;
+            $fullnumber = 'PNJ' . $number_plus;
+        }
+
+        return $fullnumber;
+    }
 }

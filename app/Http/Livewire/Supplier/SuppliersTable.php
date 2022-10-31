@@ -28,14 +28,14 @@ class SuppliersTable extends DataTableComponent
                         'action' => '$emit("create:supplier")'
                     ]
                 ],
-            ])            
-            ->setThAttributes(function(Column $column) {
+            ])
+            ->setThAttributes(function (Column $column) {
                 if ($column->isField('Aksi')) {
-                  return [
-                    'width' => '10%',
-                  ];
+                    return [
+                        'width' => '10%',
+                    ];
                 }
-            
+
                 return [];
             });
     }
@@ -46,11 +46,14 @@ class SuppliersTable extends DataTableComponent
             Column::make("Id", "id")
                 ->sortable(),
             Column::make("Nama", "name")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Alamat", "address")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Telp", "phone")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             LinkColumn::make('Aksi')
                 ->title(fn ($row) => 'edit')
                 ->location(fn ($row) => '#')

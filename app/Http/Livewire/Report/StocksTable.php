@@ -27,14 +27,14 @@ class StocksTable extends DataTableComponent
                         'title' => 'Print'
                     ]
                 ],
-            ])            
-            ->setThAttributes(function(Column $column) {
+            ])
+            ->setThAttributes(function (Column $column) {
                 if ($column->isField('Aksi')) {
-                  return [
-                    'width' => '10%',
-                  ];
+                    return [
+                        'width' => '10%',
+                    ];
                 }
-            
+
                 return [];
             });
     }
@@ -45,23 +45,26 @@ class StocksTable extends DataTableComponent
             Column::make("Id", "id")
                 ->sortable(),
             Column::make("Kode Obat", "cure.code")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Nama Obat", "cure.name")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Posisi Rak", "cure.rack.name")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Stock", "amount")
-                ->sortable(),
+                ->sortable()
+                ->searchable()
+                ->format(function ($value) {
+                    return idr($value);
+                }),
             Column::make("Tgl Kedaluarsa", "expired_date")
-                ->sortable(),
-            // LinkColumn::make('Aksi')
-            // ->title(fn ($row) => 'edit')
-            // ->location(fn ($row) => '#')
-            // ->attributes(fn ($row) => [
-            //     'class' => 'badge rounded-pill bg-primary',
-            //     'title' => 'Edit ' . $row->code,
-            //     "wire:click" => '$emit(`edit:purchase`,' . $row->id . ')'
-            // ])
+                ->sortable()
+                ->searchable()
+                ->format(function ($value) {
+                    return dateFormat($value);
+                }),
         ];
     }
 }

@@ -12,6 +12,7 @@ use App\Http\Livewire\Purchase\ShowPurchaseForm;
 use App\Http\Livewire\Purchase\ShowPurchases;
 use App\Http\Livewire\Report\ShowPurchase;
 use App\Http\Livewire\Report\ShowStocks;
+use App\Http\Livewire\Sale\ShowSaleForm;
 use App\Http\Livewire\Sale\ShowSales;
 use App\Http\Livewire\Supplier\ShowSupplier;
 use App\Http\Livewire\Unit\ShowUnits;
@@ -70,7 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('purchases.index');
 
         Route::get('/purchases/form/{id}', ShowPurchaseForm::class)
-                ->name('purchases.edit');
+            ->name('purchases.edit');
 
         Route::get('/purchases/form/0', ShowPurchaseForm::class)
             ->name('purchases.create');
@@ -88,9 +89,27 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('report.purchase.print');
     });
 
-    Route::group(['middleware' => 'can:akses obat masuk'], function () {
+    Route::group(['middleware' => 'can:akses obat keluar'], function () {
         Route::get('/sales', ShowSales::class)
             ->name('sales.index');
+
+        Route::get('/sales/form/{id}', ShowSaleForm::class)
+            ->name('sales.edit');
+
+        Route::get('/sales/form/0', ShowSaleForm::class)
+            ->name('sales.create');
+
+        Route::get('/sales/show/{sale}', ShowDetail::class)
+            ->name('sales.show');
+
+        Route::get('/report/sales/invoice/{sale}', [ReportController::class, 'saleInvoice'])
+            ->name('report.sale.invoice');
+
+        Route::get('/report/sales', ShowSales::class)
+            ->name('report.sales');
+
+        Route::get('/report/sales/print', [ReportController::class, 'printSale'])
+            ->name('report.sale.print');
     });
 
     Route::group(['middleware' => 'can:akses laporan'], function () {
@@ -104,6 +123,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'can:akses supplier'], function () {
         Route::get('/suppliers', ShowSupplier::class)
             ->name('suppliers.index');
+    });
+
+    Route::group(['middleware' => 'can:akses customer'], function () {
+        Route::get('/customers', ShowCustomer::class)
+            ->name('customers.index');
     });
 
     Route::group(['middleware' => 'can:akses pelanggan'], function () {

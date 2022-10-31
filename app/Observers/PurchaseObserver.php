@@ -17,7 +17,7 @@ class PurchaseObserver
      */
     public function created(Purchase $purchase)
     {
-        DB::transaction(function() use ($purchase){
+        DB::transaction(function () use ($purchase) {
             $tempDetail = TemporaryPurchase::where('user_id', auth()->user()->id)->get();
             foreach ($tempDetail as $value) {
                 $purchase->cure()->attach($purchase->id, [
@@ -27,7 +27,7 @@ class PurchaseObserver
                     'subtotal' => $value->subtotal,
                     'expired' => $value->expired,
                 ]);
-    
+
                 $stockObj = Stock::query();
                 if ($stockObj->where('expired_date', $value->expired)->where('cure_id', $value->cure_id)->exists()) {
                     $stockObj->where('cure_id', $value->cure_id)->increment('amount', $value->qty);

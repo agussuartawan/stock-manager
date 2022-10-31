@@ -1,16 +1,16 @@
 <div class="row">
     <div class="col-lg-4">
-        <label for="code" class="form-label">Supplier</label>
+        <label for="code" class="form-label">Pelanggan</label>
         <div class="input-group mb-3">
-            <input type="hidden" wire:model="supplier_id">
-            <input type="text" class="form-control @error('supplier_id') is-invalid @enderror" id="supplier_name"
-                wire:model.defer="supplier_name" placeholder="Cari Supplier">
+            <input type="hidden" wire:model="customer_id">
+            <input type="text" class="form-control @error('customer_id') is-invalid @enderror" id="customer_name"
+                wire:model.defer="customer_name" placeholder="Cari Pelanggan">
 
-            <button class="input-group-text btn btn-secondary icon icon-left" id="btn-search-supplier"
-                wire:click.prevent="$emit('show:modalSupplier')">
+            <button class="input-group-text btn btn-secondary icon icon-left" id="btn-search-customer"
+                wire:click.prevent="$emit('show:modalCustomer')">
                 <i class="bi bi-search"></i>
             </button>
-            @error('supplier_id')
+            @error('customer_id')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -33,7 +33,7 @@
 
     <div class="col-lg-4">
         <div class="mb-3">
-            <label for="code" class="form-label">No. Obat Masuk</label>
+            <label for="code" class="form-label">No. Obat Keluar</label>
             <input type="text" class="form-control" id="code" wire:model.defer="code" disabled>
         </div>
     </div>

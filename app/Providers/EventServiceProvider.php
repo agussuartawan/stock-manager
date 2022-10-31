@@ -4,10 +4,14 @@ namespace App\Providers;
 
 use App\Models\Cure;
 use App\Models\CurePurchase;
+use App\Models\CureSale;
 use App\Models\Purchase;
+use App\Models\Sale;
 use App\Observers\CureObserver;
 use App\Observers\CurePurchaseObserver;
+use App\Observers\CureSaleObserver;
 use App\Observers\PurchaseObserver;
+use App\Observers\SaleObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -27,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\CurePurchaseChanged::class => [
             \App\Listeners\UpdateGrandTotalAfterCurePurchaseChanged::class,
         ],
+        \App\Events\CureSaleChanged::class => [
+            \App\Listeners\UpdateGrandTotalAfterCureSaleChanged::class,
+        ],
     ];
 
     /**
@@ -39,6 +46,8 @@ class EventServiceProvider extends ServiceProvider
         Cure::observe(CureObserver::class);
         Purchase::observe(PurchaseObserver::class);
         CurePurchase::observe(CurePurchaseObserver::class);
+        Sale::observe(SaleObserver::class);
+        CureSale::observe(CureSaleObserver::class);
     }
 
     /**

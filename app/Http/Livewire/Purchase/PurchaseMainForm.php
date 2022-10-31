@@ -7,7 +7,6 @@ use App\Models\Supplier;
 use App\Models\TemporaryPurchase;
 use Carbon\Carbon;
 use Livewire\Component;
-use PhpParser\Node\Stmt\TryCatch;
 
 class PurchaseMainForm extends Component
 {
@@ -36,7 +35,7 @@ class PurchaseMainForm extends Component
     {
         $this->validate();
         try {
-            if(TemporaryPurchase::where("user_id", auth()->user()->id)->exists()){
+            if (TemporaryPurchase::where("user_id", auth()->user()->id)->exists()) {
                 Purchase::create([
                     'supplier_id' => $this->supplier_id,
                     'date' => $this->date,
@@ -54,7 +53,7 @@ class PurchaseMainForm extends Component
     {
         $this->validate();
         try {
-            if($purchase->cure()->exists()){
+            if ($purchase->cure()->exists()) {
                 $purchase->update([
                     'supplier_id' => $this->supplier_id,
                     'date' => $this->date,
@@ -77,7 +76,7 @@ class PurchaseMainForm extends Component
 
     public function mount($purchase)
     {
-        if($purchase){
+        if ($purchase) {
             $this->supplier_id = $purchase->supplier->id;
             $this->supplier_name = $purchase->supplier->name;
             $this->date = Carbon::createFromFormat('d/m/Y', $purchase->date)->format('Y-m-d');

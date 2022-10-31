@@ -10,19 +10,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CurePurchaseChanged
+class CureSaleChanged
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $purchase;
+    public $sale;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($purchase)
+    public function __construct($sale)
     {
-        $this->purchase = $purchase;
+        $this->sale = $sale;
     }
 
     /**

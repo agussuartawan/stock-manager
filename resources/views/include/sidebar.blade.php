@@ -61,7 +61,7 @@
 
                 @can('akses pelanggan')
                     <li class="sidebar-item{{ request()->is('customers*') ? ' active' : '' }}">
-                        <a href="#" class='sidebar-link'>
+                        <a href="{{ route('customers.index') }}" class='sidebar-link'>
                             <i class="bi bi-box-fill"></i>
                             <span>Master Pelanggan</span>
                         </a>
