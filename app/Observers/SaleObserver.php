@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\CureSale;
 use App\Models\Sale;
 use App\Models\Stock;
 use App\Models\TemporarySale;
@@ -20,21 +21,20 @@ class SaleObserver
         DB::transaction(function () use ($sale) {
             $tempDetail = TemporarySale::where('user_id', auth()->user()->id)->get();
             foreach ($tempDetail as $value) {
-                $stockObj = Stock::query();
-                $isExists = $stockObj->where('cure_id', $value->cure_id)
-                    ->where('amount', '>', $value->cure->minimum_stock)
-                    ->orderBy('expired_date', 'asc')
-                    ->first();
+                $sale->cure()->attach($sale->id, [
+                    'cure_id' => $value->cure_id,
+                    'qty' => $value->qty,
+                    'price' => $value->price,
+                    'subtotal' => $value->subtotal,
+                ]);
 
-                if ($isExists) {
-                    $sale->cure()->attach($sale->id, [
-                        'cure_id' => $value->cure_id,
-                        'stock_id' => $value->stock_id,
-                        'qty' => $value->qty,
-                        'price' => $value->price,
-                        'subtotal' => $value->subtotal,
-                    ]);
-                    $stockObj->decrement('amount', $value->qty);
+                $stocks = Stock::where('cure_id', $value->cure_id)
+                    ->where('amount', '>', $sale->cure->minimum_stock)
+                    ->orderBy('expired_date', 'asc')
+                    ->get();
+                foreach ($stocks as $stock) {
+                    // CureSale::find()
+                    $stock->decrement('amount', $value->qty);
                 }
             }
 
