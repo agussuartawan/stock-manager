@@ -12,6 +12,7 @@ use App\Http\Livewire\Purchase\ShowPurchaseForm;
 use App\Http\Livewire\Purchase\ShowPurchases;
 use App\Http\Livewire\Report\ShowPurchase;
 use App\Http\Livewire\Report\ShowStocks;
+use App\Http\Livewire\Sale\ShowDetail as SaleShowDetail;
 use App\Http\Livewire\Sale\ShowSaleForm;
 use App\Http\Livewire\Sale\ShowSales;
 use App\Http\Livewire\Supplier\ShowSupplier;
@@ -99,7 +100,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/sales/form/0', ShowSaleForm::class)
             ->name('sales.create');
 
-        Route::get('/sales/show/{sale}', ShowDetail::class)
+        Route::get('/sales/show/{sale}', SaleShowDetail::class)
             ->name('sales.show');
 
         Route::get('/report/sales/invoice/{sale}', [ReportController::class, 'saleInvoice'])

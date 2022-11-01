@@ -3,10 +3,10 @@
         <th>
             <label for="" class="form-label">Cari Obat</label>
             <div class="input-group">
-                <input type="hidden" wire:model="cure_id" id="cure_id">
+                <input type="hidden" wire:model.defer="cure_id" id="cure_id">
 
                 <input type="text" class="form-control @error('cure_id') is-invalid @enderror" id="cureName"
-                    wire:model="cure_name" placeholder="Cari Obat">
+                    wire:model.defer="cure_name" placeholder="Cari Obat">
 
                 <button class="input-group-text btn btn-secondary icon icon-left" id="btn-search-cure"
                     wire:click.prevent="$emit('show:modalCure')"><i class="bi bi-search"></i></button>

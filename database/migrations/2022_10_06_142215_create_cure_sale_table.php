@@ -2,6 +2,7 @@
 
 use App\Models\Cure;
 use App\Models\Sale;
+use App\Models\Stock;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +17,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('cure_sale', function (Blueprint $table) {
+            $table->id();
             $table->foreignIdFor(Cure::class)->constrained()->onUpdate('cascade');
             $table->foreignIdFor(Sale::class)->constrained()->onUpdate('cascade');
+            $table->foreignIdFor(Stock::class)->constrained()->onUpdate('cascade');
             $table->integer('qty');
             $table->decimal('price', $precission = 18, $scale = 2);
             $table->decimal('subtotal', $precission = 18, $scale = 2);

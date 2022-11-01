@@ -31,10 +31,10 @@ class PurchaseDetailForm extends Component
     ];
 
     protected $listeners = [
-        'edit:detail' => 'editDetail', 
+        'edit:detail' => 'editDetail',
         'delete:detail' => 'deleteDetail',
 
-        'edit:temporaryDetail' => 'editTemporaryDetail', 
+        'edit:temporaryDetail' => 'editTemporaryDetail',
         'delete:temporaryDetail' => 'deleteTemporaryDetail',
 
         'choose:cure' => 'chooseCure'
@@ -99,7 +99,7 @@ class PurchaseDetailForm extends Component
     {
         $this->validate();
 
-        DB::transaction(function(){
+        DB::transaction(function () {
             CurePurchase::create([
                 'purchase_id' => $this->purchase['id'],
                 'cure_id' => $this->cure_id,
@@ -130,7 +130,7 @@ class PurchaseDetailForm extends Component
         $this->validate();
         $purchaseDetail = CurePurchase::where('id', $id)->where('purchase_id', $this->purchase['id'])->first();
 
-        DB::transaction(function() use($purchaseDetail){
+        DB::transaction(function () use ($purchaseDetail) {
             $purchaseDetail->update([
                 'purchase_id' => $this->purchase['id'],
                 'cure_id' => $this->cure_id,
@@ -149,7 +149,7 @@ class PurchaseDetailForm extends Component
 
     public function deleteDetail(CurePurchase $curePurchase)
     {
-        DB::transaction(function() use($curePurchase){
+        DB::transaction(function () use ($curePurchase) {
             $curePurchase->delete();
             event(new CurePurchaseChanged($this->purchase));
         });
@@ -164,7 +164,7 @@ class PurchaseDetailForm extends Component
 
     public function mount()
     {
-        if($this->purchase){
+        if ($this->purchase) {
             $this->buttonAction = "storeDetail";
         }
     }

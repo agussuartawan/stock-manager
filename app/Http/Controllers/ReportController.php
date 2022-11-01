@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Purchase;
+use App\Models\Sale;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 
@@ -28,5 +29,12 @@ class ReportController extends Controller
         $purchases = Purchase::whereBetween('date', $dateFilter)->get();
 
         return view('report.print-purchases', compact('purchases'));
+    }
+
+    public function saleInvoice(Sale $sale)
+    {
+        return view('report.sale-invoice', [
+            'sale' => $sale
+        ]);
     }
 }

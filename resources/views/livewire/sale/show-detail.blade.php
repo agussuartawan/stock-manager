@@ -35,12 +35,12 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-lg-2">
-                                                <h6>Dari :</h6>
+                                                <h6>Kepada :</h6>
                                             </div>
                                             <div class="col-lg-10">
-                                                <h6>{{ $sale->supplier->name }}</h6>
-                                                <h6>{{ $sale->supplier->address }}, Telp:
-                                                    {{ $sale->supplier->phone }}</h6>
+                                                <h6>{{ $sale->customer->name }}</h6>
+                                                <h6>{{ $sale->customer->address }}, Telp:
+                                                    {{ $sale->customer->phone }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -51,19 +51,19 @@
                                 <div class="card border border-2 border-dark p-0">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <h6>Invoice No. :</h6>
                                             </div>
-                                            <div class="col-lg-9">
+                                            <div class="col-lg-8">
                                                 <h6>{{ $sale->code }}</h6>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-4">
                                                 <h6>Tanggal :</h6>
                                             </div>
-                                            <div class="col-lg-9">
+                                            <div class="col-lg-8">
                                                 <h6>{{ $sale->date }}</h6>
                                             </div>
                                         </div>

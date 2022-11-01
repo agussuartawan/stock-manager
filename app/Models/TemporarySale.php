@@ -9,7 +9,7 @@ class TemporarySale extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cure_id', 'qty', 'price', 'user_id'];
+    protected $fillable = ['cure_id', 'qty', 'price', 'user_id', 'stock_id'];
 
     public function cure()
     {

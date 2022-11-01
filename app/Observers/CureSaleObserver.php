@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\CureSale;
+use App\Models\Stock;
 
 class CureSaleObserver
 {
@@ -14,7 +15,12 @@ class CureSaleObserver
      */
     public function created(CureSale $cureSale)
     {
-        //
+        $cureSale->stock()->decrement('amount', $cureSale->qty);
+    }
+
+    public function creating(CureSale $cureSale)
+    {
+        return $cureSale->subtotal = (int)$cureSale->qty * (int)$cureSale->price;
     }
 
     /**
@@ -26,6 +32,15 @@ class CureSaleObserver
     public function updated(CureSale $cureSale)
     {
         //
+    }
+
+    public function updating(CureSale $cureSale)
+    {
+        Stock::where('expired_date', $cureSale->expired)
+            ->where('cure_id', $cureSale->cure_id)
+            ->decrement('amount', $cureSale->qty);
+
+        return $cureSale->subtotal = (int)$cureSale->qty * (int)$cureSale->price;
     }
 
     /**

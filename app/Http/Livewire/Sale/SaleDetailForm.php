@@ -5,22 +5,17 @@ namespace App\Http\Livewire\Sale;
 use App\Events\CureSaleChanged;
 use App\Models\Cure;
 use App\Models\CureSale;
+use App\Models\Stock;
 use App\Models\TemporarySale;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class SaleDetailForm extends Component
 {
-    public $cure_id, $qty, $price, $expired, $cure_name;
+    public $cure_id, $qty, $price, $expired, $cure_name, $stock_id;
     public $buttonLabel = 'Tambah';
     public $buttonAction = 'storeTemporaryDetail';
     public $sale;
-
-    protected $rules = [
-        'cure_id' => ['required'],
-        'qty' => ['required'],
-        'price' => ['required'],
-    ];
 
     protected $messages = [
         'cure_id' => 'Obat tidak boleh kosong',
@@ -38,6 +33,21 @@ class SaleDetailForm extends Component
         'choose:cure' => 'chooseCure'
     ];
 
+    public function rules()
+    {
+        return [
+            'cure_id' => ['required'],
+            'qty' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    dd($attribute, $value);
+                    $fail('Stock tidak mencukupi.');
+                },
+            ],
+            'price' => ['required'],
+        ];
+    }
+
     public function chooseCure(Cure $cure)
     {
         $this->cure_id = $cure->id;
@@ -54,6 +64,7 @@ class SaleDetailForm extends Component
             'cure_id' => $this->cure_id,
             'qty' => $this->qty,
             'price' => $this->price,
+            'stock_id' => $this->getNewestExpired($this->cure_id)
         ]);
         $this->emit('refreshTableDetail', []);
         $this->resetForm();
@@ -98,6 +109,7 @@ class SaleDetailForm extends Component
             CureSale::create([
                 'sale_id' => $this->sale['id'],
                 'cure_id' => $this->cure_id,
+                'stock_id' => $this->getNewestExpired($this->cure_id),
                 'qty' => $this->qty,
                 'price' => $this->price,
             ]);
@@ -113,7 +125,6 @@ class SaleDetailForm extends Component
         $this->cure_id = $saleDetail->cure_id;
         $this->qty = $saleDetail->qty;
         $this->price = round($saleDetail->price);
-        $this->expired = $saleDetail->expired;
         $this->cure_name = $saleDetail->cure->name;
         $this->buttonAction = 'updateDetail(' . $saleDetail->id . ')';
         $this->buttonLabel = 'Edit';
@@ -174,5 +185,11 @@ class SaleDetailForm extends Component
         $this->price = null;
         $this->cure_code = null;
         $this->cure_name = null;
+    }
+
+    public function getNewestExpired($cure_id)
+    {
+        $cure = Cure::find($cure_id);
+        return Stock::where('cure_id', $cure->id)->where('amount', '>', $cure->minimum_stock)->orderBy('expired_date', 'asc')->first()->id;
     }
 }

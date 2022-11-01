@@ -29,6 +29,7 @@ class SaleObserver
                 if ($isExists) {
                     $sale->cure()->attach($sale->id, [
                         'cure_id' => $value->cure_id,
+                        'stock_id' => $value->stock_id,
                         'qty' => $value->qty,
                         'price' => $value->price,
                         'subtotal' => $value->subtotal,
