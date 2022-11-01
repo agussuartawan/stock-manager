@@ -75,4 +75,9 @@ class Cure extends Model
     {
         return $this->belongsToMany(Purchase::class)->withPivot('qty', 'price', 'expired', 'subtotal');
     }
+
+    public function stock()
+    {
+        return $this->hasMany(Stock::class);
+    }
 }

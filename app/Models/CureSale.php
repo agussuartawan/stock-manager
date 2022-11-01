@@ -11,7 +11,7 @@ class CureSale extends Model
 
     public $timestamps = false;
     protected $table = 'cure_sale';
-    protected $fillable = ['cure_id', 'sale_id', 'qty', 'price', 'subtotal', 'stock_id'];
+    protected $fillable = ['cure_id', 'sale_id', 'qty', 'price', 'subtotal'];
 
     public function cure()
     {
@@ -20,6 +20,6 @@ class CureSale extends Model
 
     public function stock()
     {
-        return $this->belongsTo(Stock::class);
+        return $this->belongsToMany(Stock::class);
     }
 }

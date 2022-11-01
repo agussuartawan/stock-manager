@@ -20,7 +20,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Cure::class)->constrained()->onUpdate('cascade');
             $table->foreignIdFor(Sale::class)->constrained()->onUpdate('cascade');
-            $table->foreignIdFor(Stock::class)->constrained()->onUpdate('cascade');
             $table->integer('qty');
             $table->decimal('price', $precission = 18, $scale = 2);
             $table->decimal('subtotal', $precission = 18, $scale = 2);

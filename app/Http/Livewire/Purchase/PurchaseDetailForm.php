@@ -28,6 +28,7 @@ class PurchaseDetailForm extends Component
         'qty' => 'Jumlah tidak boleh kosong',
         'price' => 'Harga tidak boleh kosong',
         'date' => 'Tanggal kedaluarsa tidak boleh kosong',
+        'expired' => 'Harus di isi'
     ];
 
     protected $listeners = [

@@ -1,5 +1,5 @@
 <tbody>
-    @foreach ($saleDetails as $detail)
+    @forelse ($saleDetails as $detail)
         <tr>
             @if ($detail->name)
                 {{-- for cure_detail table --}}
@@ -27,7 +27,11 @@
                 </td>
             @endif
         </tr>
-    @endforeach
+    @empty
+        <tr class="text-center">
+            <td colspan="5">Tidak ada data.</td>
+        </tr>
+    @endforelse
     <tr>
         <td colspan="2" class="text-end">
             <h5>Total</h5>

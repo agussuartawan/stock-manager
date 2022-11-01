@@ -2,6 +2,9 @@
     <tr>
         <th>
             <label for="" class="form-label">Kedaluarsa</label>
+            @error('expired') 
+                <small class="text-danger" style="font-size: 11px;"><em>{{ $message }}</em></small>
+            @enderror
             <div class="input-group">
                 <input type="date" class="form-control @error('expired') is-invalid @enderror" id="expired"
                     wire:model="expired">
@@ -10,6 +13,9 @@
 
         <th>
             <label for="" class="form-label">Cari Obat</label>
+            @error('cure_id') 
+                <small class="text-danger" style="font-size: 11px;"><em>{{ $message }}</em></small>
+            @enderror
             <div class="input-group">
                 <input type="hidden" wire:model="cure_id" id="cure_id">
 
@@ -23,6 +29,9 @@
 
         <th>
             <label for="" class="form-label">Jumlah</label>
+            @error('qty') 
+                <small class="text-danger" style="font-size: 11px;"><em>{{ $message }}</em></small>
+            @enderror
             <div class="input-group">
                 <input type="text" class="form-control @error('qty') is-invalid @enderror" id="qty"
                     wire:model="qty" placeholder="Jumlah">
@@ -31,6 +40,9 @@
 
         <th colspan="2">
             <label for="" class="form-label">Harga</label>
+            @error('price') 
+                <small class="text-danger" style="font-size: 11px;"><em>{{ $message }}</em></small>
+            @enderror
             <div class="input-group">
                 <input type="text" class="form-control @error('price') is-invalid @enderror" id="price"
                     wire:model="price" placeholder="Harga jual">

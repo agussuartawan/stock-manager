@@ -7,6 +7,7 @@ use App\Models\Cure;
 use App\Models\CureSale;
 use App\Models\Stock;
 use App\Models\TemporarySale;
+use App\Rules\CheckStockAmountRule;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -18,9 +19,9 @@ class SaleDetailForm extends Component
     public $sale;
 
     protected $messages = [
-        'cure_id' => 'Obat tidak boleh kosong',
-        'qty' => 'Jumlah tidak boleh kosong',
-        'price' => 'Harga tidak boleh kosong',
+        'cure_id.required' => 'Obat tidak boleh kosong',
+        'qty.required' => 'Jumlah tidak boleh kosong',
+        'price.required' => 'Harga tidak boleh kosong',
     ];
 
     protected $listeners = [
@@ -37,13 +38,7 @@ class SaleDetailForm extends Component
     {
         return [
             'cure_id' => ['required'],
-            'qty' => [
-                'required',
-                function ($attribute, $value, $fail) {
-                    dd($attribute, $value);
-                    $fail('Stock tidak mencukupi.');
-                },
-            ],
+            'qty' => ['required', new CheckStockAmountRule($this->cure_id)],
             'price' => ['required'],
         ];
     }

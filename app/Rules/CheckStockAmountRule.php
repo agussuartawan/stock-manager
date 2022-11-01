@@ -3,41 +3,34 @@
 namespace App\Rules;
 
 use App\Models\Cure;
-use App\Models\Stock;
-use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Contracts\Validation\InvokableRule;
 
-class CheckStockAmountRule implements Rule
+class CheckStockAmountRule implements InvokableRule
 {
-    public $stock;
     /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct($cure_id)
-    {
-        $this->stock = Stock::where('cure_id')
-    }
-
-    /**
-     * Determine if the validation rule passes.
+     * Run the validation rule.
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
+     * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
+     * @return void
      */
-    public function passes($attribute, $value)
+    public $cure;
+
+    public function __construct($cure_id)
     {
-        //
+        $this->cure = Cure::find($cure_id);
     }
 
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
-    public function message()
+    public function __invoke($attribute, $value, $fail)
     {
-        return 'The validation error message.';
+        $cure = $this->cure;
+        $stockAmount = ($cure->stock) ? $cure->stock->sum('amount') : NULL;
+        $stockRemains = $stockAmount - $value;
+        $minimumStock = $cure->minimum_stock;
+
+        if ($minimumStock > $stockRemains) {
+            $fail('Stok tidak mencukupi');
+        }
     }
 }

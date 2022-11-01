@@ -17,6 +17,7 @@
             <input type="text" class="form-control" wire:model.defer="cure_selling_price"
                 placeholder="Cari harga jual obat">
         </th>
+        <th>Sisa Stok</th>
         <th>
             <input type="submit" hidden>
             <div class="spinner-border text-primary" role="status" wire:loading>
