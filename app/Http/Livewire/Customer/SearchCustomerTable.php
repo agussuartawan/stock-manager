@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Customer;
 
 use App\Models\Customer;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class SearchCustomerTable extends Component
 {
