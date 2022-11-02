@@ -5,7 +5,7 @@
             <td>{{ $cure->name }}</td>
             <td>{{ $cure->purchase_price }}</td>
             <td>{{ $cure->selling_price }}</td>
-            <td>{{ ($cure->stock) ? $cure->stock->sum('amount') : '0' }}</td>
+            <td>{{ idr($cure->stock->amount) }}</td>
             <td>
                 <a href="#" wire:click.prevent="$emit('choose:cure', {{ $cure->id }})"><span
                         class="badge rounded-pill bg-primary">pilih</span></a>

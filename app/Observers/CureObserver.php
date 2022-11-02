@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Cure;
+use App\Models\Stock;
 
 class CureObserver
 {
@@ -34,7 +35,10 @@ class CureObserver
      */
     public function created(Cure $cure)
     {
-        //
+        Stock::create([
+            'cure_id' => $cure->id,
+            'amount' => 0
+        ]);
     }
 
     /**

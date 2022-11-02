@@ -59,12 +59,6 @@ class StocksTable extends DataTableComponent
                 ->format(function ($value) {
                     return idr($value);
                 }),
-            Column::make("Tgl Kedaluarsa", "expired_date")
-                ->sortable()
-                ->searchable()
-                ->format(function ($value) {
-                    return dateFormat($value);
-                }),
         ];
     }
 }

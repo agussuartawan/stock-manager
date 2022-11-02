@@ -18,7 +18,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Cure::class)->constrained()->onUpdate('cascade');
             $table->integer('amount');
-            $table->date('expired_date');
             $table->timestamps();
         });
     }

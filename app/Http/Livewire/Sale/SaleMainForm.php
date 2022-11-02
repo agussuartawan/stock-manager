@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Sale;
 use App\Models\TemporarySale;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class SaleMainForm extends Component
@@ -36,10 +37,12 @@ class SaleMainForm extends Component
         $this->validate();
         // try {
         if (TemporarySale::where("user_id", auth()->user()->id)->exists()) {
-            Sale::create([
-                'customer_id' => $this->customer_id,
-                'date' => $this->date,
-            ]);
+            DB::transaction(function () {
+                Sale::create([
+                    'customer_id' => $this->customer_id,
+                    'date' => $this->date,
+                ]);
+            });
             return to_route('sales.create')->with('success', 'Data obat keluar berhasil disimpan');
         } else {
             $this->emit("alert:error");

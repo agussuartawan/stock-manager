@@ -14,7 +14,7 @@ class Sale extends Model
 
     public function cure()
     {
-        return $this->belongsToMany(Cure::class)->withPivot('id', 'qty', 'price', 'subtotal', 'stock_id');
+        return $this->belongsToMany(Cure::class)->withPivot('id', 'qty', 'price', 'subtotal');
     }
 
     public function customer()

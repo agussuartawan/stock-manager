@@ -16,15 +16,13 @@ class CurePurchaseObserver
     public function created(CurePurchase $curePurchase)
     {
         $stockObj = Stock::query();
-        if ($stockObj->where('cure_id', $curePurchase->cure_id)->where('expired_date', $curePurchase->expired)->exists()) {
-            Stock::where('expired_date', $curePurchase->expired)
-                ->where('cure_id', $curePurchase->cure_id)
+        if ($stockObj->where('cure_id', $curePurchase->cure_id)->exists()) {
+            Stock::where('cure_id', $curePurchase->cure_id)
                 ->increment('amount', $curePurchase->qty);
         } else {
             Stock::create([
                 'cure_id' => $curePurchase->cure_id,
                 'amount' => $curePurchase->qty,
-                'expired_date' => $curePurchase->expired
             ]);
         }
     }
@@ -43,15 +41,13 @@ class CurePurchaseObserver
     public function updated(CurePurchase $curePurchase)
     {
         $stockObj = Stock::query();
-        if ($stockObj->where('cure_id', $curePurchase->cure_id)->where('expired_date', $curePurchase->expired)->exists()) {
-            Stock::where('expired_date', $curePurchase->expired)
-                ->where('cure_id', $curePurchase->cure_id)
+        if ($stockObj->where('cure_id', $curePurchase->cure_id)->exists()) {
+            Stock::where('cure_id', $curePurchase->cure_id)
                 ->increment('amount', $curePurchase->qty);
         } else {
             Stock::create([
                 'cure_id' => $curePurchase->cure_id,
                 'amount' => $curePurchase->qty,
-                'expired_date' => $curePurchase->expired
             ]);
         }
     }
@@ -59,8 +55,7 @@ class CurePurchaseObserver
     public function updating(CurePurchase $curePurchase)
     {
         $purchaseDetail = CurePurchase::find($curePurchase->id);
-        Stock::where('expired_date', $purchaseDetail->expired)
-            ->where('cure_id', $purchaseDetail->cure_id)
+        Stock::where('cure_id', $purchaseDetail->cure_id)
             ->decrement('amount', $purchaseDetail->qty);
 
         return $curePurchase->subtotal = (int)$curePurchase->qty * (int)$curePurchase->price;
@@ -74,8 +69,7 @@ class CurePurchaseObserver
      */
     public function deleted(CurePurchase $curePurchase)
     {
-        Stock::where('expired_date', $curePurchase->expired)
-            ->where('cure_id', $curePurchase->cure_id)
+        Stock::where('cure_id', $curePurchase->cure_id)
             ->decrement('amount', $curePurchase->qty);
     }
 

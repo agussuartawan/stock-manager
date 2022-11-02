@@ -25,7 +25,7 @@ class CheckStockAmountRule implements InvokableRule
     public function __invoke($attribute, $value, $fail)
     {
         $cure = $this->cure;
-        $stockAmount = ($cure->stock) ? $cure->stock->sum('amount') : NULL;
+        $stockAmount = $cure->stock->amount;
         $stockRemains = $stockAmount - $value;
         $minimumStock = $cure->minimum_stock;
 

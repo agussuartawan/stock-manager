@@ -7,6 +7,7 @@ use App\Models\Sale;
 use App\Models\Stock;
 use App\Models\TemporarySale;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class SaleObserver
 {
@@ -21,6 +22,16 @@ class SaleObserver
         DB::transaction(function () use ($sale) {
             $tempDetail = TemporarySale::where('user_id', auth()->user()->id)->get();
             foreach ($tempDetail as $value) {
+                $cure = $value->cure;
+                $stock = $cure->stock;
+                $stockAmount = $stock->amount;
+                $stockRemains = $stockAmount - $value->qty;
+                $minimumStock = $cure->minimum_stock;
+
+                if ($minimumStock > $stockRemains) {
+                    abort(Response::HTTP_BAD_REQUEST);
+                }
+
                 $sale->cure()->attach($sale->id, [
                     'cure_id' => $value->cure_id,
                     'qty' => $value->qty,
@@ -28,14 +39,7 @@ class SaleObserver
                     'subtotal' => $value->subtotal,
                 ]);
 
-                $stocks = Stock::where('cure_id', $value->cure_id)
-                    ->where('amount', '>', $sale->cure->minimum_stock)
-                    ->orderBy('expired_date', 'asc')
-                    ->get();
-                foreach ($stocks as $stock) {
-                    // CureSale::find()
-                    $stock->decrement('amount', $value->qty);
-                }
+                $stock->decrement('amount', $value->qty);
             }
 
             $sale->grand_total = $tempDetail->sum("subtotal");

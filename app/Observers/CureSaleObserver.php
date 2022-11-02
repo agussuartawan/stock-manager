@@ -15,7 +15,7 @@ class CureSaleObserver
      */
     public function created(CureSale $cureSale)
     {
-        $cureSale->stock()->decrement('amount', $cureSale->qty);
+        $cureSale->cure->stock->decrement('amount', $cureSale->qty);
     }
 
     public function creating(CureSale $cureSale)
@@ -31,14 +31,15 @@ class CureSaleObserver
      */
     public function updated(CureSale $cureSale)
     {
-        //
+        Stock::where('cure_id', $cureSale->cure_id)
+            ->decrement('amount', $cureSale->qty);
     }
 
     public function updating(CureSale $cureSale)
     {
-        Stock::where('expired_date', $cureSale->expired)
-            ->where('cure_id', $cureSale->cure_id)
-            ->decrement('amount', $cureSale->qty);
+        $saleDetail = CureSale::find($cureSale->id);
+        Stock::where('cure_id', $saleDetail->cure_id)
+            ->increment('amount', $saleDetail->qty);
 
         return $cureSale->subtotal = (int)$cureSale->qty * (int)$cureSale->price;
     }
@@ -51,7 +52,8 @@ class CureSaleObserver
      */
     public function deleted(CureSale $cureSale)
     {
-        //
+        Stock::where('cure_id', $cureSale->cure_id)
+            ->increment('amount', $cureSale->qty);
     }
 
     /**

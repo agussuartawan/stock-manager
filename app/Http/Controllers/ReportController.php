@@ -37,4 +37,12 @@ class ReportController extends Controller
             'sale' => $sale
         ]);
     }
+
+    public function printSale(Request $request)
+    {
+        $dateFilter = [$request->from, $request->until];
+        $sales = Sale::whereBetween('date', $dateFilter)->get();
+
+        return view('report.print-sales', compact('sales'));
+    }
 }

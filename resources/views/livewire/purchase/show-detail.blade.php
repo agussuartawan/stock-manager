@@ -77,6 +77,7 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>Tgl Kedaluarsa</th>
                             <th>Kode Obat</th>
                             <th>Nama Obat</th>
                             <th>Qty</th>
@@ -87,6 +88,7 @@
                     <tbody>
                         @foreach ($purchase->cure as $cure)
                             <tr>
+                                <td>{{ dateFormat($cure->pivot->expired) }}</td>
                                 <td>{{ $cure->code }}</td>
                                 <td>{{ $cure->name }}</td>
                                 <td>{{ $cure->pivot->qty }}</td>
@@ -97,7 +99,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="4" class="text-end">Total</th>
+                            <th colspan="5" class="text-end">Total</th>
                             <th>{{ idr($purchase->grand_total) }}</th>
                         </tr>
                     </tfoot>

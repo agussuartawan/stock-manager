@@ -11,6 +11,7 @@ use App\Http\Livewire\Purchase\ShowDetail;
 use App\Http\Livewire\Purchase\ShowPurchaseForm;
 use App\Http\Livewire\Purchase\ShowPurchases;
 use App\Http\Livewire\Report\ShowPurchase;
+use App\Http\Livewire\Report\ShowSale;
 use App\Http\Livewire\Report\ShowStocks;
 use App\Http\Livewire\Sale\ShowDetail as SaleShowDetail;
 use App\Http\Livewire\Sale\ShowSaleForm;
@@ -82,12 +83,6 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/report/purchases/invoice/{purchase}', [ReportController::class, 'purchaseInvoice'])
             ->name('report.purchase.invoice');
-
-        Route::get('/report/purchases', ShowPurchase::class)
-            ->name('report.purchases');
-
-        Route::get('/report/purchases/print', [ReportController::class, 'printPurchase'])
-            ->name('report.purchase.print');
     });
 
     Route::group(['middleware' => 'can:akses obat keluar'], function () {
@@ -105,12 +100,6 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/report/sales/invoice/{sale}', [ReportController::class, 'saleInvoice'])
             ->name('report.sale.invoice');
-
-        Route::get('/report/sales', ShowSales::class)
-            ->name('report.sales');
-
-        Route::get('/report/sales/print', [ReportController::class, 'printSale'])
-            ->name('report.sale.print');
     });
 
     Route::group(['middleware' => 'can:akses laporan'], function () {
@@ -119,6 +108,18 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/report/stocks/print', [ReportController::class, 'printStock'])
             ->name('report.stocks.print');
+
+        Route::get('/report/purchases', ShowPurchase::class)
+            ->name('report.purchases');
+
+        Route::get('/report/purchases/print', [ReportController::class, 'printPurchase'])
+            ->name('report.purchase.print');
+
+        Route::get('/report/sales', ShowSale::class)
+            ->name('report.sales');
+
+        Route::get('/report/sales/print', [ReportController::class, 'printSale'])
+            ->name('report.sale.print');
     });
 
     Route::group(['middleware' => 'can:akses supplier'], function () {

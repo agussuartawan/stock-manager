@@ -17,9 +17,4 @@ class CureSale extends Model
     {
         return $this->belongsTo(Cure::class);
     }
-
-    public function stock()
-    {
-        return $this->belongsToMany(Stock::class);
-    }
 }

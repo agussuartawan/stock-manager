@@ -29,13 +29,12 @@ class PurchaseObserver
                 ]);
 
                 $stockObj = Stock::query();
-                if ($stockObj->where('expired_date', $value->expired)->where('cure_id', $value->cure_id)->exists()) {
+                if ($stockObj->where('cure_id', $value->cure_id)->exists()) {
                     $stockObj->where('cure_id', $value->cure_id)->increment('amount', $value->qty);
                 } else {
                     $stockObj->create([
                         'cure_id' => $value->cure_id,
                         'amount' => $value->qty,
-                        'expired_date' => $value->expired
                     ]);
                 }
             }
