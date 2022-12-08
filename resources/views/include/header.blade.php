@@ -31,8 +31,6 @@
                         style="min-width: 11rem;">
                         <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My
                                 Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-box-arrow-left me-2"></i>
-                                Logout</a></li>
                     </ul>
                 </div>
             </div>
