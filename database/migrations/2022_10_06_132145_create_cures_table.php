@@ -19,7 +19,6 @@ return new class extends Migration
         Schema::create('cures', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(CureType::class)->constrained()->onUpdate('cascade');
-            $table->foreignIdFor(Rack::class)->constrained()->onUpdate('cascade');
             $table->foreignIdFor(CureUnit::class)->constrained()->onUpdate('cascade');
             $table->string('code')->unique();
             $table->string('name');

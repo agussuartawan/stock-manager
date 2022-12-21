@@ -61,10 +61,6 @@ class CuresTable extends DataTableComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make("Rak", "rack.name")
-                ->sortable()
-                ->searchable(),
-
             Column::make("Jenis", "cureType.name")
                 ->sortable()
                 ->searchable(),

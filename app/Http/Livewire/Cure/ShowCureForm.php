@@ -7,6 +7,7 @@ use App\Models\Rack;
 use Livewire\Component;
 use App\Models\CureType;
 use App\Models\CureUnit;
+use Illuminate\Support\Facades\DB;
 
 class ShowCureForm extends Component
 {
@@ -26,7 +27,6 @@ class ShowCureForm extends Component
     protected $messages = [
         'cure_type_id.required' => 'Jenis tidak boleh kosong',
         'cure_unit_id' => 'Unit tidak boleh kosong',
-        'rack_id.required' => 'Rak tidak boleh kosong',
         'code.unique' => 'Kode telah digunakan',
         'name.required' => 'Nama tidak boleh kosong',
         'name.max' => 'Nama tidak boleh melebihi 255 karakter',
@@ -40,7 +40,7 @@ class ShowCureForm extends Component
         'store:cure' => 'storeCure',
         'showEdit:cure' => 'editCure',
         'update:cure' => 'updateCure',
-        'modal:close' => 'modalClose'
+        'modal:close' => 'modalClose',
     ];
 
     public function rules()
@@ -48,7 +48,6 @@ class ShowCureForm extends Component
         return [
             'cure_type_id' => ['required'],
             'cure_unit_id' => ['required'],
-            'rack_id' => ['required'],
             'name' => ['required', 'max:255'],
             'minimum_stock' => ['required', 'integer'],
             'purchase_price' => ['required'],
@@ -73,12 +72,19 @@ class ShowCureForm extends Component
         $this->selling_price = $cure->selling_price;
         $this->cure_type_id = $cure->cure_type_id;
         $this->cure_unit_id = $cure->cure_unit_id;
-        $this->rack_id = $cure->rack_id;
+        $data = [];
+        foreach ($cure->rack as $value) {
+            $data[] = $value->pivot->rack_id;
+        }
+        $this->rack_id = $data;
     }
 
     public function storeCure()
     {
-        Cure::create($this->validate());
+        DB::transaction(function(){
+            $cure = Cure::create($this->validate());
+            $cure->rack()->sync($this->rack_id);
+        });
         $this->emit('refresh:table');
         $this->dispatchBrowserEvent('modal-hide');
         $this->resetForm();
@@ -86,7 +92,10 @@ class ShowCureForm extends Component
 
     public function updateCure(Cure $cure)
     {
-        $cure->update($this->validate());
+        DB::transaction(function() use($cure){
+            $cure->update($this->validate());
+            $cure->rack()->sync($this->rack_id);
+        });
         $this->emit('refresh:table');
         $this->dispatchBrowserEvent('modal-hide');
         $this->resetForm();
@@ -98,7 +107,7 @@ class ShowCureForm extends Component
         $this->name = '';
         $this->cure_type_id = '';
         $this->cure_unit_id = '';
-        $this->rack_id = '';
+        $this->rack_id = [];
         $this->minimum_stock = '';
         $this->purchase_price = '';
         $this->selling_price = '';

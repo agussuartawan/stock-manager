@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cure;
+use App\Models\CurePurchase;
+use App\Models\CureSale;
 use App\Models\Purchase;
 use App\Models\Sale;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -35,6 +39,12 @@ class HomeController extends Controller
         $purchases = json_encode($purchases, JSON_NUMERIC_CHECK);
         $sales = json_encode($sales, JSON_NUMERIC_CHECK);
         $categories = json_encode($categories, JSON_NUMERIC_CHECK);
-        return view('home', compact('categories', 'purchases', 'sales'));
+
+        $cureCount = Cure::count();
+        $purchaseCount = CurePurchase::sum('qty');
+        $saleCount = CureSale::sum('qty');
+        $stockCount = Stock::sum('amount');
+
+        return view('home', compact('categories', 'purchases', 'sales', 'cureCount', 'purchaseCount', 'saleCount', 'stockCount'));
     }
 }

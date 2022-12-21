@@ -12,7 +12,6 @@ class Cure extends Model
     protected $fillable = [
         'cure_unit_id',
         'cure_type_id',
-        'rack_id',
         'code',
         'name',
         'minimum_stock',
@@ -53,7 +52,7 @@ class Cure extends Model
 
     public function rack()
     {
-        return $this->belongsTo(Rack::class);
+        return $this->belongsToMany(Rack::class);
     }
 
     public static function getNextCode()

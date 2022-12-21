@@ -20,7 +20,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col">
             <div class="mb-3">
                 <label for="cure_type_id" class="form-label">Jenis</label>
                 <select class="form-select @error('cure_type_id') is-invalid @enderror" wire:model="cure_type_id" aria-label="Default select example">
@@ -37,7 +37,7 @@
             </div>
         </div>
         
-        <div class="col-lg-4">
+        <div class="col">
             <div class="mb-3">
                 <label for="cure_unit_id" class="form-label">Unit</label>
                 <select class="form-select @error('cure_unit_id') is-invalid @enderror" wire:model="cure_unit_id" aria-label="Default select example">
@@ -53,14 +53,23 @@
                 @enderror
             </div>
         </div>
+    </div>
 
+    <div class="row">
         <div class="col">
             <div class="mb-3">
                 <label for="rack_id" class="form-label">Rak</label>
-                <select class="form-select @error('rack_id') is-invalid @enderror" wire:model="rack_id" aria-label="Default select example">
-                    <option>Pilih Rak</option>
+                <select 
+                    class="form-select @error('rack_id') is-invalid @enderror" 
+                    aria-label="Default select example" 
+                    multiple id="rack_id"
+                    wire:model="rack_id"
+                    >
                     @foreach ($racks as $rack)
-                        <option wire:key="rack-{{ $rack->id }}" value="{{ $rack->id }}">{{ $rack->name }}</option>
+                        <option 
+                        wire:key="rack-id-{{ $cure_unit->id }}" 
+                        value="{{ $rack->id }}"
+                        >{{ $rack->name }}</option>
                     @endforeach
                 </select>
                 @error('rack_id')

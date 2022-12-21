@@ -12,7 +12,7 @@ class ShowCures extends Component
 
     protected $listeners = [
         'create:cure' => 'createCureAction',
-        'edit:cure' => 'editCureAction'
+        'edit:cure' => 'editCureAction',
     ];
 
     public function createCureAction()

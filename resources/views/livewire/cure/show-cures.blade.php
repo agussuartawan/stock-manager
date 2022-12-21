@@ -10,8 +10,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Master Obat
-                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Master Obat</li>
                     </ol>
                 </nav>
             </div>
@@ -25,24 +24,24 @@
 </div>
 
 @push('css')
-<link rel="stylesheet" href="/assets/extensions/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="/assets/extensions/sweetalert2/sweetalert2.min.css">
 @endpush
 
 @push('js')
-<script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
-<script>
-    var myModal = new bootstrap.Modal(document.getElementById("modal"), {})
-    window.addEventListener('modal-show', event => {
-        myModal.show()
-    })
-    
-    window.addEventListener('modal-hide', event => {
-        myModal.hide()
-        Swal.fire(
-            "Berhasil",
-            "Data produk berhasil disimpan.",
-            "success"
-        )
-    })
-</script>
+    <script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+    <script>
+        var myModal = new bootstrap.Modal(document.getElementById("modal"), {})
+        window.addEventListener('modal-show', event => {
+            myModal.show()
+        })
+        
+        window.addEventListener('modal-hide', event => {
+            myModal.hide()
+            Swal.fire(
+                "Berhasil",
+                "Data produk berhasil disimpan.",
+                "success"
+            )
+        })
+    </script>
 @endpush
