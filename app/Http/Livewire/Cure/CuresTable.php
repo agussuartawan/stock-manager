@@ -49,7 +49,7 @@ class CuresTable extends DataTableComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make("Unit", "cureUnit.name")
+            Column::make("Satuan", "cureUnit.name")
                 ->sortable()
                 ->searchable(),
 
