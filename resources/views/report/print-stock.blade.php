@@ -23,7 +23,7 @@
                             <th scope="row">{{ $i + 1 }}</th>
                             <td>{{ $stock->cure->code }}</td>
                             <td>{{ $stock->cure->name }}</td>
-                            <td>{{ $stock->cure->rack->name }}</td>
+                            <td>{{ $stock->cure->rack->implode('name', ', ') }}</td>
                             <td>{{ $stock->amount }}</td>
                         </tr>
                     @empty

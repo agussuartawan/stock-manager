@@ -50,9 +50,9 @@ class StocksTable extends DataTableComponent
             Column::make("Nama Obat", "cure.name")
                 ->sortable()
                 ->searchable(),
-            Column::make("Posisi Rak", "cure.rack.name")
-                ->sortable()
-                ->searchable(),
+            // Column::make("Posisi Rak", "cure.rack.name")
+            //     ->sortable()
+            //     ->searchable(),
             Column::make("Stock", "amount")
                 ->sortable()
                 ->searchable()
