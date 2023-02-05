@@ -38,14 +38,14 @@ class UserSeeder extends Seeder
 			$director_role->syncPermissions([$report]);
 
 			$admin = User::create([
-				'name' => 'Admin',
-                'email' => 'admin@gmail.com',
+				'name' => 'Super Admin',
+                'email' => 'superadmin@gmail.com',
                 'password' => Hash::make('password')
 			]);
 
             $warehouse = User::create([
-				'name' => 'Kepala Gudang',
-                'email' => 'gudang@gmail.com',
+				'name' => 'Admin',
+                'email' => 'admin@gmail.com',
                 'password' => Hash::make('password')
 			]);
 
