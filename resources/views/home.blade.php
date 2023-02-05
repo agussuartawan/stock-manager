@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-12 col-lg-12">
                 <div class="row">
-                    @if(auth()->user()->hasRole(['Administrator']))
+                    @if(auth()->user()->hasRole(['Administrator', 'Admin']))
                     <div class="col-6 col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body px-4 py-4-5">
@@ -34,7 +34,7 @@
                     </div>
                     @endif
 
-                    @if (auth()->user()->hasRole(['Administrator']))
+                    @if (auth()->user()->hasRole(['Administrator', 'Admin']))
                     <div class="col-6 col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body px-4 py-4-5">
@@ -54,7 +54,7 @@
                     </div>
                     @endif
 
-                    @if (auth()->user()->hasRole(['Administrator', 'Direktur']))
+                    @if (auth()->user()->hasRole(['Administrator', 'Direktur', 'Admin']))
                     <div class="col-6 col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body px-4 py-4-5">
@@ -74,7 +74,7 @@
                     </div>
                     @endif
 
-                    @if (auth()->user()->hasRole(['Administrator', 'Direktur']))
+                    @if (auth()->user()->hasRole(['Administrator', 'Direktur', 'Admin']))
                     <div class="col-6 col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body px-4 py-4-5">
