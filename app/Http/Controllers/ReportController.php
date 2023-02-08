@@ -26,7 +26,7 @@ class ReportController extends Controller
     public function printPurchase(Request $request)
     {
         $dateFilter = [$request->from, $request->until];
-        $purchases = Purchase::whereBetween('date', $dateFilter)->get();
+        $purchases = Purchase::with('cure')->whereBetween('date', $dateFilter)->get();
 
         return view('report.print-purchases', compact('purchases'));
     }
@@ -41,7 +41,7 @@ class ReportController extends Controller
     public function printSale(Request $request)
     {
         $dateFilter = [$request->from, $request->until];
-        $sales = Sale::whereBetween('date', $dateFilter)->get();
+        $sales = Sale::with('cure')->whereBetween('date', $dateFilter)->get();
 
         return view('report.print-sales', compact('sales'));
     }
