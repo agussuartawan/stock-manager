@@ -16,7 +16,7 @@
     </style>
 </head>
 
-<body {{-- onload="window.print()" --}}>
+<body onload="window.print()">
     <div id="main-content">
         @yield('content')
     </div>

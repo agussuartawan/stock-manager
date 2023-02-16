@@ -32,7 +32,7 @@
                 @foreach ($purchase->cure as $k => $cure)
 
                 <tr>
-                    <th scope="row">{{ ($purchase->code != $code) ? $i + 1 : '' }}</th>
+                    <td scope="row">{{ ($purchase->code != $code) ? $i + 1 : '' }}</td>
                     <td>{{ ($purchase->code != $code) ? $purchase->code : '' }}</td>
                     <td>{{ ($purchase->code != $code) ? $purchase->supplier->name : '' }}</td>
                     <td>{{ ($purchase->code != $code) ? $purchase->date : '' }}</td>
